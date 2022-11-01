@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_info"
+        android:title="내 정보" />
+
+    <item
+        android:id="@+id/item_mission"
+        android:title="미션 수행하기" />
+
+    <item
+        android:id="@+id/item_group"
+        android:title="내 그룹" />
+</menu>

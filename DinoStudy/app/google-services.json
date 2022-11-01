@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "124285905616",
+    "project_id": "test-dino-934c0",
+    "storage_bucket": "test-dino-934c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124285905616:android:a7beeeb91132e988884cd5",
+        "android_client_info": {
+          "package_name": "com.example.dinostudy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124285905616-if1uhvtubvbrc9vvr1867q9k8iitfen5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyGzamYLPcuNm7KTvCQlKoaWkzLYH0oH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124285905616-if1uhvtubvbrc9vvr1867q9k8iitfen5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
