@@ -11,6 +11,7 @@ import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -95,63 +96,44 @@ public class WatchFragment extends Fragment {
         watchViewModel.readResult.observe(getViewLifecycleOwner(), res -> {
             if (res.getCode() == 200) { // 데이터 존재
                 //ArrayList에 추가
-                if (!res.getSubject1().equals('.')) {
-                    SubjectItem dataSubject1 = new SubjectItem(res.getSubject1(), res.getTime1());
-                    arrayList.add(dataSubject1); //마지막 줄에 추가. 첫번째 줄은 (0, dataSubject)
+                if (!res.getSubject1().equals(".")) {
+                    arrayList.add(new SubjectItem(res.getSubject1(), res.getTime1()));
                 }
 
-                //ArrayList에 추가
-                if (!res.getSubject2().equals('.')) {
-                    SubjectItem dataSubject2 = new SubjectItem(res.getSubject2(), res.getTime2());
-                    arrayList.add(dataSubject2); //마지막 줄에 추가. 첫번째 줄은 (0, dataSubject)
+                if (!res.getSubject2().equals(".")) {
+                    arrayList.add(new SubjectItem(res.getSubject2(), res.getTime2()));
                 }
 
-                //ArrayList에 추가
-                if (!res.getSubject3().equals('.')) {
-                    SubjectItem dataSubject3 = new SubjectItem(res.getSubject3(), res.getTime3());
-                    arrayList.add(dataSubject3); //마지막 줄에 추가. 첫번째 줄은 (0, dataSubject)
+                if (!res.getSubject3().equals(".")) {
+                    arrayList.add(new SubjectItem(res.getSubject3(), res.getTime3()));
                 }
 
-                //ArrayList에 추가
-                if (!res.getSubject4().equals('.')) {
-                    SubjectItem dataSubject4 = new SubjectItem(res.getSubject4(), res.getTime4());
-                    arrayList.add(dataSubject4); //마지막 줄에 추가. 첫번째 줄은 (0, dataSubject)
+                if (!res.getSubject4().equals(".")) {
+                    arrayList.add(new SubjectItem(res.getSubject4(), res.getTime4()));
                 }
 
-                //ArrayList에 추가
-                if (!res.getSubject5().equals('.')) {
-                    SubjectItem dataSubject5 = new SubjectItem(res.getSubject5(), res.getTime5());
-                    arrayList.add(dataSubject5); //마지막 줄에 추가. 첫번째 줄은 (0, dataSubject)
+                if (!res.getSubject5().equals(".")) {
+                    arrayList.add(new SubjectItem(res.getSubject5(), res.getTime5()));
                 }
 
-                //ArrayList에 추가
-                if (!res.getSubject6().equals('.')) {
-                    SubjectItem dataSubject6 = new SubjectItem(res.getSubject6(), res.getTime6());
-                    arrayList.add(dataSubject6); //마지막 줄에 추가. 첫번째 줄은 (0, dataSubject)
+                if (!res.getSubject6().equals(".")) {
+                    arrayList.add(new SubjectItem(res.getSubject6(), res.getTime6()));
                 }
 
-                //ArrayList에 추가
-                if (!res.getSubject7().equals('.')) {
-                    SubjectItem dataSubject7 = new SubjectItem(res.getSubject7(), res.getTime7());
-                    arrayList.add(dataSubject7); //마지막 줄에 추가. 첫번째 줄은 (0, dataSubject)
+                if (!res.getSubject7().equals(".")) {
+                    arrayList.add(new SubjectItem(res.getSubject7(), res.getTime7()));
                 }
 
-                //ArrayList에 추가
-                if (!res.getSubject8().equals('.')) {
-                    SubjectItem dataSubject8 = new SubjectItem(res.getSubject8(), res.getTime8());
-                    arrayList.add(dataSubject8); //마지막 줄에 추가. 첫번째 줄은 (0, dataSubject)
+                if (!res.getSubject8().equals(".")) {
+                    arrayList.add(new SubjectItem(res.getSubject8(), res.getTime8()));
                 }
 
-                //ArrayList에 추가
-                if (!res.getSubject9().equals('.')) {
-                    SubjectItem dataSubject9 = new SubjectItem(res.getSubject9(), res.getTime9());
-                    arrayList.add(dataSubject9); //마지막 줄에 추가. 첫번째 줄은 (0, dataSubject)
+                if (!res.getSubject9().equals(".")) {
+                    arrayList.add(new SubjectItem(res.getSubject9(), res.getTime9()));
                 }
 
-                //ArrayList에 추가
-                if (!res.getSubject10().equals('.')) {
-                    SubjectItem dataSubject10 = new SubjectItem(res.getSubject10(), res.getTime10());
-                    arrayList.add(dataSubject10); //마지막 줄에 추가. 첫번째 줄은 (0, dataSubject)
+                if (!res.getSubject10().equals(".")) {
+                    arrayList.add(new SubjectItem(res.getSubject10(), res.getTime10()));
                 }
 
                 stopwatchAdapter.notifyDataSetChanged(); //새로고침
@@ -164,13 +146,11 @@ public class WatchFragment extends Fragment {
 
         watchViewModel.createResult.observe(getViewLifecycleOwner(), res -> {
             if (res.getCode() == 200) {
-                SubjectItem dataSubject = new SubjectItem("과목1", "00:00:00");
-                arrayList.add(dataSubject); //마지막 줄에 추가. 첫번째 줄은 (0, dataSubject)
-                stopwatchAdapter.notifyDataSetChanged(); //새로고침
+                arrayList.add(new SubjectItem("과목1", "00:00:00")); //마지막 줄에 추가. 첫번째 줄은 (0, dataSubject)
+                stopwatchAdapter.notifyItemInserted(stopwatchAdapter.getItemCount() + 1);
+
             }
         });
-
-
 
 
         binding.btnPlusSubject.setOnClickListener(new View.OnClickListener() {
@@ -181,42 +161,50 @@ public class WatchFragment extends Fragment {
                 arrayList.add(dataSubject);
                 stopwatchAdapter.notifyDataSetChanged();
                 */
-                AlertDialog.Builder builder = new AlertDialog.Builder(ct);
-                binding_plus_subject = FragmentWatchPlusSubjectBinding.inflate(inflater, container, false);
-                builder.setView(binding_plus_subject.getRoot());
 
-                //btn_subject_name.setText("삽입");
-                final AlertDialog dialog = builder.create();
+                if (stopwatchAdapter.getItemCount() >= 10) {
+                    Toast.makeText(ct, "과목 추가는 10개까지만 가능합니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ct);
+                    binding_plus_subject = FragmentWatchPlusSubjectBinding.inflate(inflater, container, false);
+                    builder.setView(binding_plus_subject.getRoot());
 
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    //btn_subject_name.setText("삽입");
+                    final AlertDialog dialog = builder.create();
 
-                binding_plus_subject.btnSubjectInsert.setOnClickListener(new View.OnClickListener() {
-                    @SuppressLint("FragmentLiveDataObserve")
-                    @Override
-                    public void onClick(View v) {
-                        //사용자 입력 내용
-                        String strSubject = binding_plus_subject.etSubject.getText().toString();
-                        String subjectTime = "00:00:00";
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                        watchViewModel.addWatch(new AddWatchData(username, curDate, strSubject, subjectTime, arrayList.size() + 1));
-                        watchViewModel.addResult.observe(WatchFragment.this, res -> {
-                            if(res.getCode() == 200) {
-                                //ArrayList에 추가
-                                SubjectItem dataSubject = new SubjectItem(strSubject, subjectTime);
-                                arrayList.add(dataSubject); //마지막 줄에 추가. 첫번째 줄은 (0, dataSubject)
-                                stopwatchAdapter.notifyDataSetChanged(); //새로고침
-                            } else { // 에러 코드
+                    binding_plus_subject.btnSubjectInsert.setOnClickListener(new View.OnClickListener() {
+                        @SuppressLint("FragmentLiveDataObserve")
+                        @Override
+                        public void onClick(View v) {
+                            //사용자 입력 내용
+                            String strSubject = binding_plus_subject.etSubject.getText().toString();
+                            String subjectTime = "00:00:00";
 
-                            }
-                        });
+                            watchViewModel.addWatch(new AddWatchData(username, curDate, strSubject, subjectTime, arrayList.size() + 1));
+//                        watchViewModel.addResult.observe(WatchFragment.this, res -> {
+//                            System.out.println("********실행********");
+//                            if(res.getCode() == 200) {
+                            //ArrayList에 추가
+                            arrayList.add(new SubjectItem(strSubject, subjectTime));
+                            stopwatchAdapter.notifyItemInserted(stopwatchAdapter.getItemCount() + 1);
+                            System.out.println(strSubject + " add");
+//                            } else { // 에러 코드
+//
+//                            }
+//                        });
 
-                        dialog.dismiss();
-                    }
-                });
+                            dialog.dismiss();
+                        }
+                    });
 
-                dialog.show();
+                    dialog.show();
+                }
             }
         });
+
+
 
         //시작
         binding.btnStart.setOnClickListener(new View.OnClickListener() {
