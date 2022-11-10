@@ -10,6 +10,8 @@ import com.example.dinostudy.model.AddWatchData;
 import com.example.dinostudy.model.AddWatchResponse;
 import com.example.dinostudy.model.CreateWatchResponse;
 import com.example.dinostudy.model.CreateWatchData;
+import com.example.dinostudy.model.EditWatchData;
+import com.example.dinostudy.model.EditWatchResponse;
 import com.example.dinostudy.model.ReadWatchData;
 import com.example.dinostudy.model.ReadWatchResponse;
 import com.example.dinostudy.repository.RetrofitClient;
@@ -23,6 +25,7 @@ public class WatchViewModel extends AndroidViewModel {
     public MutableLiveData<ReadWatchResponse> readResult = new MutableLiveData<>();
     public MutableLiveData<CreateWatchResponse> createResult = new MutableLiveData<>();
     public MutableLiveData<AddWatchResponse> addResult = new MutableLiveData<>();
+    public MutableLiveData<EditWatchResponse> editResult = new MutableLiveData<>();
 
     ServiceApi service;
 
@@ -84,6 +87,25 @@ public class WatchViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<AddWatchResponse> call, Throwable t) {
+                System.out.println("fail");
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void editWatch(EditWatchData data){
+        System.out.println("********* EditWatchData *********");
+
+        service.editWatchData(data).enqueue(new Callback<EditWatchResponse>() {
+            @Override
+            public void onResponse(Call<EditWatchResponse> call, Response<EditWatchResponse> response) {
+                EditWatchResponse result = response.body();
+                editResult.postValue(result);
+                System.out.println("edit resultCode: "+ result.getCode());
+            }
+
+            @Override
+            public void onFailure(Call<EditWatchResponse> call, Throwable t) {
                 System.out.println("fail");
                 t.printStackTrace();
             }

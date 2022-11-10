@@ -30,7 +30,7 @@ public class LoginViewModel extends AndroidViewModel {
 
     }
 
-    //서버에서 응답받는 코드 -> 응답코드 받아서 성공/실패여부 확인?
+    // 서버에서 응답받는 코드 -> 응답코드 받아서 성공/실패여부 확인?
     public void checkUserEmail(CheckEmailData data){
         System.out.println("#4 checkUserEmail 메서드 실행");
         System.out.println("email: "+ data);

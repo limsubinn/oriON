@@ -11,6 +11,8 @@ import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.dinostudy.R;
 import com.example.dinostudy.databinding.FragmentWatchBinding;
 import com.example.dinostudy.databinding.FragmentWatchPlusSubjectBinding;
 import com.example.dinostudy.model.AddWatchData;
@@ -75,7 +78,7 @@ public class WatchFragment extends Fragment {
 
         arrayList = new ArrayList<>();
 
-        stopwatchAdapter = new WatchAdapter(arrayList);
+        stopwatchAdapter = new WatchAdapter(ct, arrayList);
         binding.rvStopwatch.setAdapter(stopwatchAdapter);
 
         handler = new Handler();
@@ -152,6 +155,48 @@ public class WatchFragment extends Fragment {
             }
         });
 
+        // 리사이클러뷰 아이템 클릭 이벤트
+        stopwatchAdapter.setOnItemClickListener (new WatchAdapter.OnItemClickListener() {
+
+            // 삭제
+            @Override
+            public void onDeleteClick(View v, int position) {
+                arrayList.remove(position);
+                stopwatchAdapter.notifyItemRemoved(position);
+            }
+
+            // 편집
+            @Override
+            public void onEditClick(View v, int position) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ct);
+                binding_plus_subject = FragmentWatchPlusSubjectBinding.inflate(inflater, container, false);
+                builder.setView(binding_plus_subject.getRoot());
+
+                binding_plus_subject.btnSubjectInsert.setText("변경"); // 버튼 -> 변경으로 바꾸기
+                binding_plus_subject.etSubject.setText(arrayList.get(position).getSubject()); // 기존 데이터
+
+                final AlertDialog dialog = builder.create();
+
+                binding_plus_subject.btnSubjectInsert.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //새로 입력한 이름으로 업데이트
+                        String str_subject = binding_plus_subject.etSubject.getText().toString();
+                        String str_subject_time = "00:00:00";
+
+                        SubjectItem ary = new SubjectItem(str_subject, str_subject_time);
+
+                        arrayList.set(position, ary);
+                        stopwatchAdapter.notifyItemChanged(position); //새로고침
+
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+        });
+
 
         binding.btnPlusSubject.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,20 +227,26 @@ public class WatchFragment extends Fragment {
                             String strSubject = binding_plus_subject.etSubject.getText().toString();
                             String subjectTime = "00:00:00";
 
-                            watchViewModel.addWatch(new AddWatchData(username, curDate, strSubject, subjectTime, arrayList.size() + 1));
+                            if (strSubject.equals(".")) {
+                                Toast.makeText(ct, "과목명은 .만 입력할 수 없습니다.", Toast.LENGTH_SHORT).show();
+
+                            } else {
+
+                                watchViewModel.addWatch(new AddWatchData(username, curDate, strSubject, subjectTime, arrayList.size() + 1));
 //                        watchViewModel.addResult.observe(WatchFragment.this, res -> {
 //                            System.out.println("********실행********");
 //                            if(res.getCode() == 200) {
-                            //ArrayList에 추가
-                            arrayList.add(new SubjectItem(strSubject, subjectTime));
-                            stopwatchAdapter.notifyItemInserted(stopwatchAdapter.getItemCount() + 1);
-                            System.out.println(strSubject + " add");
+                                //ArrayList에 추가
+                                arrayList.add(new SubjectItem(strSubject, subjectTime));
+                                stopwatchAdapter.notifyItemInserted(stopwatchAdapter.getItemCount() + 1);
+                                System.out.println(strSubject + " add");
 //                            } else { // 에러 코드
 //
 //                            }
 //                        });
 
-                            dialog.dismiss();
+                                dialog.dismiss();
+                            }
                         }
                     });
 
@@ -203,6 +254,7 @@ public class WatchFragment extends Fragment {
                 }
             }
         });
+
 
 
 

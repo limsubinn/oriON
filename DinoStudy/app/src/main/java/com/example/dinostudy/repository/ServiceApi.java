@@ -6,6 +6,8 @@ import com.example.dinostudy.model.CheckEmailData;
 import com.example.dinostudy.model.CheckEmailResponse;
 import com.example.dinostudy.model.CreateWatchData;
 import com.example.dinostudy.model.CreateWatchResponse;
+import com.example.dinostudy.model.EditWatchData;
+import com.example.dinostudy.model.EditWatchResponse;
 import com.example.dinostudy.model.ReadWatchData;
 import com.example.dinostudy.model.ReadWatchResponse;
 
@@ -29,4 +31,8 @@ public interface ServiceApi {
     // 사용자의 timer 데이터 읽기
     @POST("/watch/read")
     Call<ReadWatchResponse> readWatchData (@Body ReadWatchData data);
+
+    // 사용자의 timer 데이터 수정
+    @POST("/watch/edit")
+    Call<EditWatchResponse> editWatchData (@Body EditWatchData data);
 }
