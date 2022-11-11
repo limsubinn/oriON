@@ -3,6 +3,7 @@ package com.example.dinostudy.view.fragment;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ import com.example.dinostudy.databinding.FragmentWatchPlusSubjectBinding;
 import com.example.dinostudy.model.AddWatchData;
 import com.example.dinostudy.model.CheckEmailData;
 import com.example.dinostudy.model.CreateWatchData;
+import com.example.dinostudy.model.DeleteWatchData;
+import com.example.dinostudy.model.EditWatchData;
 import com.example.dinostudy.model.ReadWatchData;
 import com.example.dinostudy.view.adapter.WatchAdapter;
 import com.example.dinostudy.view.item.SubjectItem;
@@ -45,7 +48,7 @@ public class WatchFragment extends Fragment {
 
     private ArrayList<SubjectItem> arrayList;
     private WatchAdapter stopwatchAdapter;
-//    private RecyclerView recyclerView;
+    //    private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     //private Chronometer chronometer;
     private Thread timeThread = null;
@@ -93,6 +96,9 @@ public class WatchFragment extends Fragment {
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         String curDate = sdf.format(date);
+
+        // 날짜 설정
+        binding.dayStopwatch.setText(curDate);
 
         // 데이터 읽기
         watchViewModel.readWatch(new ReadWatchData(username, curDate));
@@ -161,8 +167,52 @@ public class WatchFragment extends Fragment {
             // 삭제
             @Override
             public void onDeleteClick(View v, int position) {
-                arrayList.remove(position);
-                stopwatchAdapter.notifyItemRemoved(position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ct);
+                builder.setMessage("정말 삭제하시겠습니까?")
+                        .setPositiveButton("예",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        String tempSub[] = new String[10];
+                                        String tempTime[] = new String[10];
+
+                                        for (int i=0; i<10; i++) {
+                                            if (i < position) {
+                                                tempSub[i] = arrayList.get(i).getSubject();
+                                                tempTime[i] = arrayList.get(i).getTime();
+                                            } else if (i <= arrayList.size()-2) {
+                                                tempSub[i] = arrayList.get(i+1).getSubject();
+                                                tempTime[i] = arrayList.get(i+1).getTime();
+                                            } else {
+                                                tempSub[i] = ".";
+                                                tempTime[i] = "";
+                                            }
+                                        }
+
+                                        watchViewModel.deleteWatch(new DeleteWatchData
+                                                (username, curDate, tempSub[0], tempTime[0], tempSub[1], tempTime[1],
+                                                        tempSub[2], tempTime[2], tempSub[3], tempTime[3], tempSub[4], tempTime[4],
+                                                        tempSub[5], tempTime[5], tempSub[6], tempTime[6], tempSub[7], tempTime[7],
+                                                        tempSub[8], tempTime[8], tempSub[9], tempTime[9]));
+                                        watchViewModel.deleteResult.observe(getViewLifecycleOwner(), res -> {
+                                            if (res.getCode() == 200) {
+                                                arrayList.remove(position);
+                                                stopwatchAdapter.notifyItemRemoved(position);
+                                                Toast.makeText(ct, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                                                System.out.println("remove "+position);
+                                            }
+                                        });
+                                    }
+                                })
+                        .setNegativeButton("아니오",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Toast.makeText(ct, "취소되었습니다.", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                        .show();
+
             }
 
             // 편집
@@ -172,8 +222,12 @@ public class WatchFragment extends Fragment {
                 binding_plus_subject = FragmentWatchPlusSubjectBinding.inflate(inflater, container, false);
                 builder.setView(binding_plus_subject.getRoot());
 
+                String beforeSub = arrayList.get(position).getSubject();
+                String beforeTime = arrayList.get(position).getTime();
+
                 binding_plus_subject.btnSubjectInsert.setText("변경"); // 버튼 -> 변경으로 바꾸기
-                binding_plus_subject.etSubject.setText(arrayList.get(position).getSubject()); // 기존 데이터
+                binding_plus_subject.etSubject.setText(beforeSub); // 기존 데이터
+
 
                 final AlertDialog dialog = builder.create();
 
@@ -182,16 +236,23 @@ public class WatchFragment extends Fragment {
                     public void onClick(View view) {
                         //새로 입력한 이름으로 업데이트
                         String str_subject = binding_plus_subject.etSubject.getText().toString();
-                        String str_subject_time = "00:00:00";
+                        String str_subject_time = beforeTime;
 
-                        SubjectItem ary = new SubjectItem(str_subject, str_subject_time);
+                        watchViewModel.editWatch(new EditWatchData(position + 1, str_subject, username, curDate));
 
-                        arrayList.set(position, ary);
-                        stopwatchAdapter.notifyItemChanged(position); //새로고침
+                        watchViewModel.editResult.observe(getViewLifecycleOwner(), res -> {
+                            if (res.getCode() == 200) {
+                                SubjectItem ary = new SubjectItem(str_subject, str_subject_time);
 
-                        dialog.dismiss();
+                                arrayList.set(position, ary);
+                                stopwatchAdapter.notifyItemChanged(position); //새로고침
+
+                                dialog.dismiss();
+                            }
+                        });
                     }
                 });
+                System.out.println("edit "+position);
 
                 dialog.show();
             }

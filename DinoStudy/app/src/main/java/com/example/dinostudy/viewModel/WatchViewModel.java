@@ -10,6 +10,8 @@ import com.example.dinostudy.model.AddWatchData;
 import com.example.dinostudy.model.AddWatchResponse;
 import com.example.dinostudy.model.CreateWatchResponse;
 import com.example.dinostudy.model.CreateWatchData;
+import com.example.dinostudy.model.DeleteWatchData;
+import com.example.dinostudy.model.DeleteWatchResponse;
 import com.example.dinostudy.model.EditWatchData;
 import com.example.dinostudy.model.EditWatchResponse;
 import com.example.dinostudy.model.ReadWatchData;
@@ -26,6 +28,7 @@ public class WatchViewModel extends AndroidViewModel {
     public MutableLiveData<CreateWatchResponse> createResult = new MutableLiveData<>();
     public MutableLiveData<AddWatchResponse> addResult = new MutableLiveData<>();
     public MutableLiveData<EditWatchResponse> editResult = new MutableLiveData<>();
+    public MutableLiveData<DeleteWatchResponse> deleteResult = new MutableLiveData<>();
 
     ServiceApi service;
 
@@ -106,6 +109,25 @@ public class WatchViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<EditWatchResponse> call, Throwable t) {
+                System.out.println("fail");
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void deleteWatch(DeleteWatchData data){
+        System.out.println("********* DeleteWatchData *********");
+
+        service.deleteWatchData(data).enqueue(new Callback<DeleteWatchResponse>() {
+            @Override
+            public void onResponse(Call<DeleteWatchResponse> call, Response<DeleteWatchResponse> response) {
+                DeleteWatchResponse result = response.body();
+                deleteResult.postValue(result);
+                System.out.println("delete resultCode: "+ result.getCode());
+            }
+
+            @Override
+            public void onFailure(Call<DeleteWatchResponse> call, Throwable t) {
                 System.out.println("fail");
                 t.printStackTrace();
             }

@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class EditWatchData {
 
-    @SerializedName("before")
-    private String before;
+    @SerializedName("position")
+    private int position;
 
-    @SerializedName("after")
-    private String after;
+    @SerializedName("subject")
+    private String subject;
 
     @SerializedName("username")
     private String username;
@@ -16,9 +16,9 @@ public class EditWatchData {
     @SerializedName("date")
     private String date;
 
-    public EditWatchData(String before, String after, String username, String date) {
-        this.before = before;
-        this.after = after;
+    public EditWatchData(int position, String subject, String username, String date) {
+        this.position = position;
+        this.subject = subject;
         this.username = username;
         this.date = date;
     }
