@@ -12,8 +12,6 @@ import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,14 +20,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.dinostudy.R;
 import com.example.dinostudy.databinding.FragmentWatchBinding;
 import com.example.dinostudy.databinding.FragmentWatchPlusSubjectBinding;
 import com.example.dinostudy.model.AddWatchData;
-import com.example.dinostudy.model.CheckEmailData;
 import com.example.dinostudy.model.CreateWatchData;
+import com.example.dinostudy.model.DeleteTimeData;
 import com.example.dinostudy.model.DeleteWatchData;
-import com.example.dinostudy.model.EditWatchData;
+import com.example.dinostudy.model.EditSubjectData;
+import com.example.dinostudy.model.EditTimeData;
 import com.example.dinostudy.model.ReadWatchData;
 import com.example.dinostudy.view.adapter.WatchAdapter;
 import com.example.dinostudy.view.item.SubjectItem;
@@ -59,9 +57,11 @@ public class WatchFragment extends Fragment {
     private long timeBuff = 0L;     //일시정지 눌렀을 때 측정된 총 시간
     private long updateTime = 0L;   //총 시간 = 일시정지 눌렀을 때 총 시간 + 시작 누르고 난 이후 부터 시간
 
+
     Handler handler;
 
     int sec, min, hour;
+    int curPosition = 0;
 
     public WatchFragment(){
 
@@ -146,6 +146,20 @@ public class WatchFragment extends Fragment {
                 }
 
                 stopwatchAdapter.notifyDataSetChanged(); //새로고침
+
+                binding.subject.setText(arrayList.get(0).getSubject());
+                binding.studyTime.setText(arrayList.get(0).getTime());
+
+                String curTime = arrayList.get(0).getTime();
+                String[] strAry = curTime.split(":");
+
+                int strHour = Integer.parseInt(strAry[0]);
+                int strMin = Integer.parseInt(strAry[1]);
+                int strSec = Integer.parseInt(strAry[2]);
+
+                Long cur = new Long((strHour * 60 * 60 * 1000) + (strMin * 60 * 1000) + (strSec * 1000));
+                timeBuff = cur;
+
             } else if (res.getCode() == 204) { // 데이터 없음
                 // timer에 초기 데이터 삽입
                 watchViewModel.createWatch(new CreateWatchData(username, curDate, "과목1", "00:00:00"));
@@ -158,8 +172,14 @@ public class WatchFragment extends Fragment {
                 arrayList.add(new SubjectItem("과목1", "00:00:00")); //마지막 줄에 추가. 첫번째 줄은 (0, dataSubject)
                 stopwatchAdapter.notifyItemInserted(stopwatchAdapter.getItemCount() + 1);
 
+                binding.subject.setText(arrayList.get(0).getSubject());
+                binding.studyTime.setText(arrayList.get(0).getTime());
             }
         });
+
+        // 과목 설정
+//        binding.subject.setText(arrayList.get(0).getSubject());
+//        binding.studyTime.setText(arrayList.get(0).getTime());
 
         // 리사이클러뷰 아이템 클릭 이벤트
         stopwatchAdapter.setOnItemClickListener (new WatchAdapter.OnItemClickListener() {
@@ -167,52 +187,75 @@ public class WatchFragment extends Fragment {
             // 삭제
             @Override
             public void onDeleteClick(View v, int position) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ct);
-                builder.setMessage("정말 삭제하시겠습니까?")
-                        .setPositiveButton("예",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        String tempSub[] = new String[10];
-                                        String tempTime[] = new String[10];
 
-                                        for (int i=0; i<10; i++) {
-                                            if (i < position) {
-                                                tempSub[i] = arrayList.get(i).getSubject();
-                                                tempTime[i] = arrayList.get(i).getTime();
-                                            } else if (i <= arrayList.size()-2) {
-                                                tempSub[i] = arrayList.get(i+1).getSubject();
-                                                tempTime[i] = arrayList.get(i+1).getTime();
-                                            } else {
-                                                tempSub[i] = ".";
-                                                tempTime[i] = "";
+                if (arrayList.size() == 1) {
+                    Toast.makeText(ct, "과목은 1개 이상 존재해야 합니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ct);
+                    builder.setMessage("정말 삭제하시겠습니까?")
+                            .setPositiveButton("예",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            String tempSub[] = new String[10];
+                                            String tempTime[] = new String[10];
+
+                                            for (int i = 0; i < 10; i++) {
+                                                if (i < position) {
+                                                    tempSub[i] = arrayList.get(i).getSubject();
+                                                    tempTime[i] = arrayList.get(i).getTime();
+                                                } else if (i <= arrayList.size() - 2) {
+                                                    tempSub[i] = arrayList.get(i + 1).getSubject();
+                                                    tempTime[i] = arrayList.get(i + 1).getTime();
+                                                } else {
+                                                    tempSub[i] = ".";
+                                                    tempTime[i] = "";
+                                                }
                                             }
+
+                                            watchViewModel.deleteWatch(new DeleteWatchData
+                                                    (username, curDate, tempSub[0], tempTime[0], tempSub[1], tempTime[1],
+                                                            tempSub[2], tempTime[2], tempSub[3], tempTime[3], tempSub[4], tempTime[4],
+                                                            tempSub[5], tempTime[5], tempSub[6], tempTime[6], tempSub[7], tempTime[7],
+                                                            tempSub[8], tempTime[8], tempSub[9], tempTime[9]));
+                                            watchViewModel.deleteResult.observe(getViewLifecycleOwner(), res -> {
+                                                if (res.getCode() == 200) {
+                                                    arrayList.remove(position);
+                                                    stopwatchAdapter.notifyItemRemoved(position);
+                                                    Toast.makeText(ct, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                                                    System.out.println("remove " + position);
+                                                }
+                                            });
                                         }
+                                    })
+                            .setNegativeButton("아니오",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Toast.makeText(ct, "취소되었습니다.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                            .show();
+                }
 
-                                        watchViewModel.deleteWatch(new DeleteWatchData
-                                                (username, curDate, tempSub[0], tempTime[0], tempSub[1], tempTime[1],
-                                                        tempSub[2], tempTime[2], tempSub[3], tempTime[3], tempSub[4], tempTime[4],
-                                                        tempSub[5], tempTime[5], tempSub[6], tempTime[6], tempSub[7], tempTime[7],
-                                                        tempSub[8], tempTime[8], tempSub[9], tempTime[9]));
-                                        watchViewModel.deleteResult.observe(getViewLifecycleOwner(), res -> {
-                                            if (res.getCode() == 200) {
-                                                arrayList.remove(position);
-                                                stopwatchAdapter.notifyItemRemoved(position);
-                                                Toast.makeText(ct, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                                                System.out.println("remove "+position);
-                                            }
-                                        });
-                                    }
-                                })
-                        .setNegativeButton("아니오",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Toast.makeText(ct, "취소되었습니다.", Toast.LENGTH_SHORT).show();
-                                    }
-                                })
-                        .show();
+            }
 
+            // 아이템 클릭
+            @Override
+            public void onItemClick(View v, int position) {
+                binding.subject.setText(arrayList.get(position).getSubject());
+                binding.studyTime.setText(arrayList.get(position).getTime());
+                curPosition = position;
+
+                String curTime = arrayList.get(position).getTime();
+                String[] strAry = curTime.split(":");
+
+                int strHour = Integer.parseInt(strAry[0]);
+                int strMin = Integer.parseInt(strAry[1]);
+                int strSec = Integer.parseInt(strAry[2]);
+
+                Long cur = new Long((strHour * 60 * 60 * 1000) + (strMin * 60 * 1000) + (strSec * 1000));
+                timeBuff = cur;
             }
 
             // 편집
@@ -238,18 +281,27 @@ public class WatchFragment extends Fragment {
                         String str_subject = binding_plus_subject.etSubject.getText().toString();
                         String str_subject_time = beforeTime;
 
-                        watchViewModel.editWatch(new EditWatchData(position + 1, str_subject, username, curDate));
+                        if (str_subject.equals(".")) {
+                            Toast.makeText(ct, "과목명은 .만 입력할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                        } else {
 
-                        watchViewModel.editResult.observe(getViewLifecycleOwner(), res -> {
-                            if (res.getCode() == 200) {
-                                SubjectItem ary = new SubjectItem(str_subject, str_subject_time);
+                            watchViewModel.editSubject(new EditSubjectData(position + 1, str_subject, username, curDate));
 
-                                arrayList.set(position, ary);
-                                stopwatchAdapter.notifyItemChanged(position); //새로고침
+                            watchViewModel.editSubResult.observe(getViewLifecycleOwner(), res -> {
+                                if (res.getCode() == 200) {
+                                    SubjectItem ary = new SubjectItem(str_subject, str_subject_time);
 
-                                dialog.dismiss();
-                            }
-                        });
+                                    arrayList.set(position, ary);
+                                    stopwatchAdapter.notifyItemChanged(position); //새로고침
+
+                                    if (curPosition == position) {
+                                        binding.subject.setText(str_subject);
+                                    }
+
+                                    dialog.dismiss();
+                                }
+                            });
+                        }
                     }
                 });
                 System.out.println("edit "+position);
@@ -345,6 +397,21 @@ public class WatchFragment extends Fragment {
 
                 binding.btnReset.setEnabled(true);
                 //일시정지 누르면 초기화 버튼 활성화
+
+                String curTime = "" + String.format("%02d", hour) + ":" + String.format("%02d", min) + ":"
+                        + String.format("%02d", sec);
+
+                watchViewModel.editTime(new EditTimeData(curPosition+1, curTime, username, curDate));
+                watchViewModel.editTimeResult.observe(getViewLifecycleOwner(), res -> {
+                    if (res.getCode() == 200) {
+                        String curSub = arrayList.get(curPosition).getSubject();
+                        SubjectItem ary = new SubjectItem(curSub, curTime);
+
+                        arrayList.set(curPosition, ary);
+                        stopwatchAdapter.notifyItemChanged(curPosition); //새로고침
+                    }
+                });
+
             }
         });
 
@@ -361,7 +428,25 @@ public class WatchFragment extends Fragment {
                 hour = 00;
                 //측정 시간 모두 리셋
 
-                binding.studyTime.setText("00:00:00");
+                String curTime = "00:00:00";
+                binding.studyTime.setText(curTime);
+
+                watchViewModel.deleteTime(new DeleteTimeData(curPosition+1, curTime, username, curDate));
+                watchViewModel.deleteTimeResult.observe(getViewLifecycleOwner(), res -> {
+                    if (res.getCode() == 200) {
+                        String curSub = arrayList.get(curPosition).getSubject();
+                        SubjectItem ary = new SubjectItem(curSub, curTime);
+
+                        arrayList.set(curPosition, ary);
+                        stopwatchAdapter.notifyItemChanged(curPosition); //새로고침
+                    }
+                });
+
+                String curSub = arrayList.get(curPosition).getSubject();
+                SubjectItem ary = new SubjectItem(curSub, curTime);
+
+                arrayList.set(curPosition, ary);
+                stopwatchAdapter.notifyItemChanged(curPosition); //새로고침
             }
         });
 
@@ -377,10 +462,17 @@ public class WatchFragment extends Fragment {
             updateTime = timeBuff + mSecTime;
             //일시정지 눌렀을 때의 총 시간 + 시작 버튼 누르고 난 이후 부터의 시간(이어서 재기)
 
+
             sec = (int) (updateTime / 1000);
             min = sec / 60;
             sec = sec % 60;
             hour = min / 60;
+
+
+
+//            int tHour = hour + Integer.parseInt(strAry[0]);
+//            int tMin = min + Integer.parseInt(strAry[1]);
+//            int tSec = sec + Integer.parseInt(strAry[2]);
 
             binding.studyTime.setText("" + String.format("%02d", hour) + ":" + String.format("%02d", min) + ":"
                     + String.format("%02d", sec));

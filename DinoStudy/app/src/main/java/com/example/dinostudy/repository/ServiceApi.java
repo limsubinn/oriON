@@ -6,10 +6,14 @@ import com.example.dinostudy.model.CheckEmailData;
 import com.example.dinostudy.model.CheckEmailResponse;
 import com.example.dinostudy.model.CreateWatchData;
 import com.example.dinostudy.model.CreateWatchResponse;
+import com.example.dinostudy.model.DeleteTimeData;
+import com.example.dinostudy.model.DeleteTimeResponse;
 import com.example.dinostudy.model.DeleteWatchData;
 import com.example.dinostudy.model.DeleteWatchResponse;
-import com.example.dinostudy.model.EditWatchData;
-import com.example.dinostudy.model.EditWatchResponse;
+import com.example.dinostudy.model.EditSubjectData;
+import com.example.dinostudy.model.EditSubjectResponse;
+import com.example.dinostudy.model.EditTimeData;
+import com.example.dinostudy.model.EditTimeResponse;
 import com.example.dinostudy.model.ReadWatchData;
 import com.example.dinostudy.model.ReadWatchResponse;
 
@@ -34,11 +38,20 @@ public interface ServiceApi {
     @POST("/watch/read")
     Call<ReadWatchResponse> readWatchData (@Body ReadWatchData data);
 
-    // 사용자의 timer 데이터 수정
-    @POST("/watch/edit")
-    Call<EditWatchResponse> editWatchData (@Body EditWatchData data);
+    // 사용자의 timer 과목 수정
+    @POST("/watch/editSubject")
+    Call<EditSubjectResponse> editWatchSubject (@Body EditSubjectData data);
+
+    // 사용자의 timer 시간 수정
+    @POST("/watch/editTime")
+    Call<EditTimeResponse> editWatchTime (@Body EditTimeData data);
 
     // 사용자의 timer 데이터 삭제
     @POST("/watch/delete")
     Call<DeleteWatchResponse> deleteWatchData (@Body DeleteWatchData data);
+
+    // 사용자의 timer 시간 삭제
+    @POST("/watch/deleteTime")
+    Call<DeleteTimeResponse> deleteWatchTime (@Body DeleteTimeData data);
+
 }

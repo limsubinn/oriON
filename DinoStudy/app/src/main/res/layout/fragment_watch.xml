@@ -18,49 +18,26 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:padding="10dp"
+        android:text="date"
         android:textSize="20dp" />
 
-    <RelativeLayout
-        android:id="@+id/select_subject"
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/subject"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/day_stopwatch">
+        android:layout_centerInParent="true"
+        android:textSize="30dp"
+        android:text="subject"
+        android:layout_below="@+id/day_stopwatch"/>
 
-        <ImageButton
-            android:id="@+id/btn_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/subject"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="30dp"
-            android:src="@drawable/select_left"
-            android:background="@android:color/transparent"/>
 
-        <TextView
-            android:id="@+id/subject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="30dp" />
-
-        <ImageButton
-            android:id="@+id/btn_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/subject"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
-            android:src="@drawable/select_right"
-            android:background="@android:color/transparent"/>
-
-    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/layout_plus_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/select_subject"
+        android:layout_below="@+id/subject"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:orientation="vertical">

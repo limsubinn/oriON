@@ -2,7 +2,7 @@ package com.example.dinostudy.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class EditWatchResponse {
+public class EditTimeResponse {
     @SerializedName("code")
     private int code;
 

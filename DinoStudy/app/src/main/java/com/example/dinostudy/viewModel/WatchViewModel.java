@@ -10,10 +10,14 @@ import com.example.dinostudy.model.AddWatchData;
 import com.example.dinostudy.model.AddWatchResponse;
 import com.example.dinostudy.model.CreateWatchResponse;
 import com.example.dinostudy.model.CreateWatchData;
+import com.example.dinostudy.model.DeleteTimeData;
+import com.example.dinostudy.model.DeleteTimeResponse;
 import com.example.dinostudy.model.DeleteWatchData;
 import com.example.dinostudy.model.DeleteWatchResponse;
-import com.example.dinostudy.model.EditWatchData;
-import com.example.dinostudy.model.EditWatchResponse;
+import com.example.dinostudy.model.EditSubjectData;
+import com.example.dinostudy.model.EditSubjectResponse;
+import com.example.dinostudy.model.EditTimeData;
+import com.example.dinostudy.model.EditTimeResponse;
 import com.example.dinostudy.model.ReadWatchData;
 import com.example.dinostudy.model.ReadWatchResponse;
 import com.example.dinostudy.repository.RetrofitClient;
@@ -27,8 +31,10 @@ public class WatchViewModel extends AndroidViewModel {
     public MutableLiveData<ReadWatchResponse> readResult = new MutableLiveData<>();
     public MutableLiveData<CreateWatchResponse> createResult = new MutableLiveData<>();
     public MutableLiveData<AddWatchResponse> addResult = new MutableLiveData<>();
-    public MutableLiveData<EditWatchResponse> editResult = new MutableLiveData<>();
+    public MutableLiveData<EditSubjectResponse> editSubResult = new MutableLiveData<>();
+    public MutableLiveData<EditTimeResponse> editTimeResult = new MutableLiveData<>();
     public MutableLiveData<DeleteWatchResponse> deleteResult = new MutableLiveData<>();
+    public MutableLiveData<DeleteTimeResponse> deleteTimeResult = new MutableLiveData<>();
 
     ServiceApi service;
 
@@ -96,19 +102,38 @@ public class WatchViewModel extends AndroidViewModel {
         });
     }
 
-    public void editWatch(EditWatchData data){
-        System.out.println("********* EditWatchData *********");
+    public void editSubject (EditSubjectData data){
+        System.out.println("********* EditSubjectData *********");
 
-        service.editWatchData(data).enqueue(new Callback<EditWatchResponse>() {
+        service.editWatchSubject(data).enqueue(new Callback<EditSubjectResponse>() {
             @Override
-            public void onResponse(Call<EditWatchResponse> call, Response<EditWatchResponse> response) {
-                EditWatchResponse result = response.body();
-                editResult.postValue(result);
+            public void onResponse(Call<EditSubjectResponse> call, Response<EditSubjectResponse> response) {
+                EditSubjectResponse result = response.body();
+                editSubResult.postValue(result);
                 System.out.println("edit resultCode: "+ result.getCode());
             }
 
             @Override
-            public void onFailure(Call<EditWatchResponse> call, Throwable t) {
+            public void onFailure(Call<EditSubjectResponse> call, Throwable t) {
+                System.out.println("fail");
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void editTime (EditTimeData data){
+        System.out.println("********* EditTimeData *********");
+
+        service.editWatchTime(data).enqueue(new Callback<EditTimeResponse>() {
+            @Override
+            public void onResponse(Call<EditTimeResponse> call, Response<EditTimeResponse> response) {
+                EditTimeResponse result = response.body();
+                editTimeResult.postValue(result);
+                System.out.println("edit resultCode: "+ result.getCode());
+            }
+
+            @Override
+            public void onFailure(Call<EditTimeResponse> call, Throwable t) {
                 System.out.println("fail");
                 t.printStackTrace();
             }
@@ -128,6 +153,25 @@ public class WatchViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<DeleteWatchResponse> call, Throwable t) {
+                System.out.println("fail");
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void deleteTime (DeleteTimeData data) {
+        System.out.println("********* DeleteTimeData *********");
+
+        service.deleteWatchTime(data).enqueue(new Callback<DeleteTimeResponse>() {
+            @Override
+            public void onResponse(Call<DeleteTimeResponse> call, Response<DeleteTimeResponse> response) {
+                DeleteTimeResponse result = response.body();
+                deleteTimeResult.postValue(result);
+                System.out.println("edit resultCode: " + result.getCode());
+            }
+
+            @Override
+            public void onFailure(Call<DeleteTimeResponse> call, Throwable t) {
                 System.out.println("fail");
                 t.printStackTrace();
             }

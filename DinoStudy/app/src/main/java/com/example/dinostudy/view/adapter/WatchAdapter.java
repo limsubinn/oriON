@@ -21,6 +21,7 @@ public class WatchAdapter extends RecyclerView.Adapter<WatchAdapter.ViewHolder> 
 
     //아이템 클릭 리스너 인터페이스
     public interface OnItemClickListener{
+        void onItemClick(View v, int position); // 아이템 클릭
         void onEditClick(View v, int position); // 편집
         void onDeleteClick(View v, int position); // 삭제
     }
@@ -67,6 +68,19 @@ public class WatchAdapter extends RecyclerView.Adapter<WatchAdapter.ViewHolder> 
     // ViewHolder가 실제로 데이터를 표시해야 할 때 호출되는 함수
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bindItem(arrayList.get(position));
+
+        // 아이템 클릭
+        holder.itemView.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition ();
+                if (position!=RecyclerView.NO_POSITION){
+                    if (mListener!=null){
+                        mListener.onItemClick(v, position);
+                    }
+                }
+            }
+        });
 
         // 편집 버튼
         holder.binding.btnEdit.setOnClickListener (new View.OnClickListener() {
