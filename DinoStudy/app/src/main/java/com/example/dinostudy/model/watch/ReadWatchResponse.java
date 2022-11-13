@@ -1,4 +1,4 @@
-package com.example.dinostudy.model;
+package com.example.dinostudy.model.watch;
 
 import com.google.gson.annotations.SerializedName;
 

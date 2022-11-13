@@ -1,8 +1,8 @@
-package com.example.dinostudy.model;
+package com.example.dinostudy.model.watch;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DeleteTimeData {
+public class EditTimeData {
 
     @SerializedName("position")
     private int position;
@@ -16,7 +16,7 @@ public class DeleteTimeData {
     @SerializedName("date")
     private String date;
 
-    public DeleteTimeData(int position, String time, String username, String date) {
+    public EditTimeData(int position, String time, String username, String date) {
         this.position = position;
         this.time = time;
         this.username = username;

@@ -6,12 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.dinostudy.model.AddDiaryData;
-import com.example.dinostudy.model.AddDiaryResponse;
-import com.example.dinostudy.model.CreateDiaryData;
-import com.example.dinostudy.model.CreateDiaryResponse;
-import com.example.dinostudy.model.ReadDiaryData;
-import com.example.dinostudy.model.ReadDiaryResponse;
+import com.example.dinostudy.model.diary.AddDiaryData;
+import com.example.dinostudy.model.diary.AddDiaryResponse;
+import com.example.dinostudy.model.diary.CreateDiaryData;
+import com.example.dinostudy.model.diary.CreateDiaryResponse;
+import com.example.dinostudy.model.diary.ReadDiaryData;
+import com.example.dinostudy.model.diary.ReadDiaryResponse;
 import com.example.dinostudy.repository.RetrofitClient;
 import com.example.dinostudy.repository.ServiceApi;
 

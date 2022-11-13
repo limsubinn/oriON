@@ -9,8 +9,6 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 
 
 import androidx.annotation.NonNull;
@@ -18,17 +16,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.dinostudy.R;
 import com.example.dinostudy.databinding.FragmentDiaryBinding;
 import com.example.dinostudy.databinding.FragmentDiaryPlusContentBinding;
-import com.example.dinostudy.model.AddDiaryData;
-import com.example.dinostudy.model.AddWatchData;
-import com.example.dinostudy.model.CreateDiaryData;
-import com.example.dinostudy.model.CreateWatchData;
-import com.example.dinostudy.model.ReadDiaryData;
-import com.example.dinostudy.model.ReadWatchData;
+import com.example.dinostudy.model.diary.AddDiaryData;
+import com.example.dinostudy.model.diary.CreateDiaryData;
+import com.example.dinostudy.model.diary.ReadDiaryData;
 import com.example.dinostudy.viewModel.DiaryViewModel;
-import com.example.dinostudy.viewModel.WatchViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,8 +1,8 @@
-package com.example.dinostudy.model;
+package com.example.dinostudy.model.todo;
 
 import com.google.gson.annotations.SerializedName;
 
-public class EditSubjectResponse {
+public class CreateTodoResponse {
     @SerializedName("code")
     private int code;
 

@@ -1,4 +1,4 @@
-package com.example.dinostudy.model;
+package com.example.dinostudy.model.diary;
 
 import com.google.gson.annotations.SerializedName;
 

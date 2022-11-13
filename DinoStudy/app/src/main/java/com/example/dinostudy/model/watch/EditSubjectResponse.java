@@ -1,8 +1,8 @@
-package com.example.dinostudy.model;
+package com.example.dinostudy.model.watch;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CreateWatchResponse {
+public class EditSubjectResponse {
     @SerializedName("code")
     private int code;
 

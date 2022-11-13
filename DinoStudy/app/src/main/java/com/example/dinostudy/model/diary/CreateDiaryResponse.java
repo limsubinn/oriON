@@ -1,8 +1,8 @@
-package com.example.dinostudy.model;
+package com.example.dinostudy.model.diary;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DeleteWatchResponse {
+public class CreateDiaryResponse {
     @SerializedName("code")
     private int code;
 

@@ -1,27 +1,39 @@
 package com.example.dinostudy.repository;
 
-import com.example.dinostudy.model.AddDiaryData;
-import com.example.dinostudy.model.AddDiaryResponse;
-import com.example.dinostudy.model.AddWatchData;
-import com.example.dinostudy.model.AddWatchResponse;
+import com.example.dinostudy.model.diary.AddDiaryData;
+import com.example.dinostudy.model.diary.AddDiaryResponse;
+import com.example.dinostudy.model.todo.AddTodoData;
+import com.example.dinostudy.model.todo.AddTodoResponse;
+import com.example.dinostudy.model.todo.CreateTodoData;
+import com.example.dinostudy.model.todo.CreateTodoResponse;
+import com.example.dinostudy.model.todo.DeleteTodoData;
+import com.example.dinostudy.model.todo.DeleteTodoResponse;
+import com.example.dinostudy.model.todo.EditTodoData;
+import com.example.dinostudy.model.todo.EditTodoResponse;
+import com.example.dinostudy.model.todo.ReadTodoData;
+import com.example.dinostudy.model.todo.ReadTodoResponse;
+import com.example.dinostudy.model.todo.UpdateCheckTodoData;
+import com.example.dinostudy.model.todo.UpdateCheckTodoResponse;
+import com.example.dinostudy.model.watch.AddWatchData;
+import com.example.dinostudy.model.watch.AddWatchResponse;
 import com.example.dinostudy.model.CheckEmailData;
 import com.example.dinostudy.model.CheckEmailResponse;
-import com.example.dinostudy.model.CreateDiaryData;
-import com.example.dinostudy.model.CreateDiaryResponse;
-import com.example.dinostudy.model.CreateWatchData;
-import com.example.dinostudy.model.CreateWatchResponse;
-import com.example.dinostudy.model.DeleteTimeData;
-import com.example.dinostudy.model.DeleteTimeResponse;
-import com.example.dinostudy.model.DeleteWatchData;
-import com.example.dinostudy.model.DeleteWatchResponse;
-import com.example.dinostudy.model.EditSubjectData;
-import com.example.dinostudy.model.EditSubjectResponse;
-import com.example.dinostudy.model.EditTimeData;
-import com.example.dinostudy.model.EditTimeResponse;
-import com.example.dinostudy.model.ReadDiaryData;
-import com.example.dinostudy.model.ReadDiaryResponse;
-import com.example.dinostudy.model.ReadWatchData;
-import com.example.dinostudy.model.ReadWatchResponse;
+import com.example.dinostudy.model.diary.CreateDiaryData;
+import com.example.dinostudy.model.diary.CreateDiaryResponse;
+import com.example.dinostudy.model.watch.CreateWatchData;
+import com.example.dinostudy.model.watch.CreateWatchResponse;
+import com.example.dinostudy.model.watch.DeleteTimeData;
+import com.example.dinostudy.model.watch.DeleteTimeResponse;
+import com.example.dinostudy.model.watch.DeleteWatchData;
+import com.example.dinostudy.model.watch.DeleteWatchResponse;
+import com.example.dinostudy.model.watch.EditSubjectData;
+import com.example.dinostudy.model.watch.EditSubjectResponse;
+import com.example.dinostudy.model.watch.EditTimeData;
+import com.example.dinostudy.model.watch.EditTimeResponse;
+import com.example.dinostudy.model.diary.ReadDiaryData;
+import com.example.dinostudy.model.diary.ReadDiaryResponse;
+import com.example.dinostudy.model.watch.ReadWatchData;
+import com.example.dinostudy.model.watch.ReadWatchResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -71,4 +83,22 @@ public interface ServiceApi {
     // 사용자의 diary 데이터 읽기
     @POST("/diary/read")
     Call<ReadDiaryResponse> readDiaryData (@Body ReadDiaryData data);
+
+    @POST("/todo/create")
+    Call<CreateTodoResponse> createTodoData (@Body CreateTodoData data);
+
+    @POST("/todo/read")
+    Call<ReadTodoResponse> readTodoData (@Body ReadTodoData data);
+
+    @POST("/todo/add")
+    Call<AddTodoResponse> addTodoData (@Body AddTodoData data);
+
+    @POST("/todo/edit")
+    Call<EditTodoResponse> editTodoData (@Body EditTodoData data);
+
+    @POST("/todo/delete")
+    Call<DeleteTodoResponse> deleteTodoData (@Body DeleteTodoData data);
+
+    @POST("/todo/edit/checkbox")
+    Call<UpdateCheckTodoResponse> updateCheckTodoData (@Body UpdateCheckTodoData data);
 }

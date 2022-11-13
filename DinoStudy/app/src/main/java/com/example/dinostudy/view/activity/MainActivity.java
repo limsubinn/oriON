@@ -55,7 +55,12 @@ public class MainActivity extends AppCompatActivity {
         // default로 to do 보이게 함
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         TodoFragment fragment_todo = new TodoFragment();
-        transaction.replace(R.id.frame,fragment_todo);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("username", username);
+        fragment_todo.setArguments(bundle);
+
+        transaction.replace(binding.frame.getId(),fragment_todo);
         transaction.commit();
 
 
