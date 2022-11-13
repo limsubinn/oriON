@@ -1,9 +1,13 @@
 package com.example.dinostudy.repository;
 
+import com.example.dinostudy.model.AddDiaryData;
+import com.example.dinostudy.model.AddDiaryResponse;
 import com.example.dinostudy.model.AddWatchData;
 import com.example.dinostudy.model.AddWatchResponse;
 import com.example.dinostudy.model.CheckEmailData;
 import com.example.dinostudy.model.CheckEmailResponse;
+import com.example.dinostudy.model.CreateDiaryData;
+import com.example.dinostudy.model.CreateDiaryResponse;
 import com.example.dinostudy.model.CreateWatchData;
 import com.example.dinostudy.model.CreateWatchResponse;
 import com.example.dinostudy.model.DeleteTimeData;
@@ -14,6 +18,8 @@ import com.example.dinostudy.model.EditSubjectData;
 import com.example.dinostudy.model.EditSubjectResponse;
 import com.example.dinostudy.model.EditTimeData;
 import com.example.dinostudy.model.EditTimeResponse;
+import com.example.dinostudy.model.ReadDiaryData;
+import com.example.dinostudy.model.ReadDiaryResponse;
 import com.example.dinostudy.model.ReadWatchData;
 import com.example.dinostudy.model.ReadWatchResponse;
 
@@ -54,4 +60,15 @@ public interface ServiceApi {
     @POST("/watch/deleteTime")
     Call<DeleteTimeResponse> deleteWatchTime (@Body DeleteTimeData data);
 
+    // 사용자의 diary 데이터 생성
+    @POST("/diary/create")
+    Call<CreateDiaryResponse> createDiaryData (@Body CreateDiaryData data);
+
+    // 사용자의 diary 데이터 추가
+    @POST("/diary/add")
+    Call<AddDiaryResponse> addDiaryData (@Body AddDiaryData data);
+
+    // 사용자의 diary 데이터 읽기
+    @POST("/diary/read")
+    Call<ReadDiaryResponse> readDiaryData (@Body ReadDiaryData data);
 }

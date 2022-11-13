@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
                 bundle.putString("username", username);
-                fragment_todo.setArguments(bundle);
+                fragment_chart.setArguments(bundle);
 
                 transaction.replace(binding.frame.getId(),fragment_chart);
                 transaction.commit();
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
                 bundle.putString("username", username);
-                fragment_todo.setArguments(bundle);
+                fragment_community.setArguments(bundle);
 
                 transaction.replace(binding.frame.getId(),fragment_community);
                 transaction.commit();
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
                 bundle.putString("username", username);
-                fragment_todo.setArguments(bundle);
+                fragment_diary.setArguments(bundle);
 
                 transaction.replace(binding.frame.getId(),fragment_diary);
                 transaction.commit();
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
                 bundle.putString("username", username);
-                fragment_todo.setArguments(bundle);
+                fragment_heart.setArguments(bundle);
 
                 transaction.replace(binding.frame.getId(),fragment_heart);
                 transaction.commit();
