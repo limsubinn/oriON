@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.dinostudy.R;
 import com.example.dinostudy.databinding.ActivityLoginBinding;
-import com.example.dinostudy.model.CheckEmailData;
+import com.example.dinostudy.model.user.LoginData;
 import com.example.dinostudy.viewModel.LoginViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -107,15 +107,19 @@ public class LoginActivity extends AppCompatActivity{
                             // String g_name = account.getDisplayName(); // 닉네임
                             String g_mail = account.getEmail(); // 이메일
 
-                            loginViewModel.checkUserEmail(new CheckEmailData(g_mail));
+                            loginViewModel.login(new LoginData(g_mail));
 
-                            loginViewModel.resultCode.observe(LoginActivity.this, res -> {
+                            loginViewModel.loginResult.observe(LoginActivity.this, res -> {
                                 if(res.getCode() == 200) {
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     intent.putExtra("nickname", res.getMessage()); // username 보내기
                                     startActivity(intent);
-                                    finish();
+                                } else if (res.getCode() == 204) {
+                                    Intent intent = new Intent(getApplicationContext(), JoinActivity.class);
+                                    intent.putExtra("email", g_mail);
+                                    startActivity(intent);
                                 }
+                                finish();
                             });
 
                             // startActivity(intent);

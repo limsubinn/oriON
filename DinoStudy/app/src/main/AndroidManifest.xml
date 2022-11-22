@@ -25,6 +25,9 @@
         <activity
             android:name=".view.activity.MainActivity">
         </activity>
+        <activity
+            android:name=".view.activity.JoinActivity">
+        </activity>
     </application>
 
 </manifest>

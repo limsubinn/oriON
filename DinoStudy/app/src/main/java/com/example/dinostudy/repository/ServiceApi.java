@@ -12,12 +12,16 @@ import com.example.dinostudy.model.todo.EditTodoData;
 import com.example.dinostudy.model.todo.EditTodoResponse;
 import com.example.dinostudy.model.todo.ReadTodoData;
 import com.example.dinostudy.model.todo.ReadTodoResponse;
-import com.example.dinostudy.model.todo.UpdateCheckTodoData;
-import com.example.dinostudy.model.todo.UpdateCheckTodoResponse;
+import com.example.dinostudy.model.todo.EditTodoCheckData;
+import com.example.dinostudy.model.todo.EditTodoCheckResponse;
+import com.example.dinostudy.model.user.CheckUserData;
+import com.example.dinostudy.model.user.CheckUserResponse;
+import com.example.dinostudy.model.user.JoinData;
+import com.example.dinostudy.model.user.JoinResponse;
 import com.example.dinostudy.model.watch.AddWatchData;
 import com.example.dinostudy.model.watch.AddWatchResponse;
-import com.example.dinostudy.model.CheckEmailData;
-import com.example.dinostudy.model.CheckEmailResponse;
+import com.example.dinostudy.model.user.LoginData;
+import com.example.dinostudy.model.user.LoginResponse;
 import com.example.dinostudy.model.diary.CreateDiaryData;
 import com.example.dinostudy.model.diary.CreateDiaryResponse;
 import com.example.dinostudy.model.watch.CreateWatchData;
@@ -41,20 +45,28 @@ import retrofit2.http.POST;
 
 public interface ServiceApi {
     // 사용자의 이메일이 등록되어 있는지 확인
-    @POST("/user/checkEmail")
-    Call<CheckEmailResponse> checkUserEmail (@Body CheckEmailData data);
+    @POST("/user/login")
+    Call<LoginResponse> login (@Body LoginData data);
+
+    // 사용자 아이디 중복 체크
+    @POST("/user/check")
+    Call<CheckUserResponse> checkUser (@Body CheckUserData data);
+
+    // 사용자 계정 생성
+    @POST("/user/join")
+    Call<JoinResponse> join (@Body JoinData data);
 
     // 사용자의 timer 데이터 생성
     @POST("/watch/create")
-    Call<CreateWatchResponse> createWatchData (@Body CreateWatchData data);
+    Call<CreateWatchResponse> createWatch (@Body CreateWatchData data);
 
     // 사용자의 timer 데이터 추가
     @POST("/watch/add")
-    Call<AddWatchResponse> addWatchData (@Body AddWatchData data);
+    Call<AddWatchResponse> addWatch (@Body AddWatchData data);
 
     // 사용자의 timer 데이터 읽기
     @POST("/watch/read")
-    Call<ReadWatchResponse> readWatchData (@Body ReadWatchData data);
+    Call<ReadWatchResponse> readWatch (@Body ReadWatchData data);
 
     // 사용자의 timer 과목 수정
     @POST("/watch/editSubject")
@@ -66,7 +78,7 @@ public interface ServiceApi {
 
     // 사용자의 timer 데이터 삭제
     @POST("/watch/delete")
-    Call<DeleteWatchResponse> deleteWatchData (@Body DeleteWatchData data);
+    Call<DeleteWatchResponse> deleteWatch (@Body DeleteWatchData data);
 
     // 사용자의 timer 시간 삭제
     @POST("/watch/deleteTime")
@@ -74,31 +86,32 @@ public interface ServiceApi {
 
     // 사용자의 diary 데이터 생성
     @POST("/diary/create")
-    Call<CreateDiaryResponse> createDiaryData (@Body CreateDiaryData data);
+    Call<CreateDiaryResponse> createDiary (@Body CreateDiaryData data);
 
     // 사용자의 diary 데이터 추가
     @POST("/diary/add")
-    Call<AddDiaryResponse> addDiaryData (@Body AddDiaryData data);
+    Call<AddDiaryResponse> addDiary (@Body AddDiaryData data);
 
     // 사용자의 diary 데이터 읽기
     @POST("/diary/read")
-    Call<ReadDiaryResponse> readDiaryData (@Body ReadDiaryData data);
+    Call<ReadDiaryResponse> readDiary (@Body ReadDiaryData data);
 
     @POST("/todo/create")
-    Call<CreateTodoResponse> createTodoData (@Body CreateTodoData data);
+    Call<CreateTodoResponse> createTodo (@Body CreateTodoData data);
 
     @POST("/todo/read")
-    Call<ReadTodoResponse> readTodoData (@Body ReadTodoData data);
+    Call<ReadTodoResponse> readTodo (@Body ReadTodoData data);
 
     @POST("/todo/add")
-    Call<AddTodoResponse> addTodoData (@Body AddTodoData data);
+    Call<AddTodoResponse> addTodo (@Body AddTodoData data);
 
     @POST("/todo/edit")
-    Call<EditTodoResponse> editTodoData (@Body EditTodoData data);
-
-    @POST("/todo/delete")
-    Call<DeleteTodoResponse> deleteTodoData (@Body DeleteTodoData data);
+    Call<EditTodoResponse> editTodo (@Body EditTodoData data);
 
     @POST("/todo/edit/checkbox")
-    Call<UpdateCheckTodoResponse> updateCheckTodoData (@Body UpdateCheckTodoData data);
-}
+    Call<EditTodoCheckResponse> editTodoCheck (@Body EditTodoCheckData data);
+
+    @POST("/todo/delete")
+    Call<DeleteTodoResponse> deleteTodo (@Body DeleteTodoData data);
+
+    }

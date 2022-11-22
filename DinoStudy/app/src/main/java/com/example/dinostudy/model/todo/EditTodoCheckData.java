@@ -2,7 +2,7 @@ package com.example.dinostudy.model.todo;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UpdateCheckTodoData {
+public class EditTodoCheckData {
 
     @SerializedName("position")
     private int n;
@@ -16,7 +16,7 @@ public class UpdateCheckTodoData {
     @SerializedName("date")
     private String date;
 
-    public UpdateCheckTodoData(int n, int check, String username, String date) {
+    public EditTodoCheckData(int n, int check, String username, String date) {
         this.n = n;
         this.check = check;
         this.username = username;

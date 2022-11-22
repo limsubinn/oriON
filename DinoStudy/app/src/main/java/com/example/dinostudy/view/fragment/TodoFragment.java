@@ -2,6 +2,7 @@ package com.example.dinostudy.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -10,7 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,20 +20,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dinostudy.R;
 import com.example.dinostudy.databinding.FragmentTodoBinding;
 import com.example.dinostudy.databinding.FragmentTodoPlusContentBinding;
-import com.example.dinostudy.databinding.ItemTodoBinding;
 
 import com.example.dinostudy.model.todo.AddTodoData;
-import com.example.dinostudy.model.todo.CheckTodoData;
 import com.example.dinostudy.model.todo.CreateTodoData;
 import com.example.dinostudy.model.todo.DeleteTodoData;
 import com.example.dinostudy.model.todo.EditTodoData;
 import com.example.dinostudy.model.todo.ReadTodoData;
-import com.example.dinostudy.model.todo.UpdateCheckTodoData;
+import com.example.dinostudy.model.todo.EditTodoCheckData;
 
 import com.example.dinostudy.view.adapter.TodoAdapter;
 import com.example.dinostudy.view.item.TodoItem;
@@ -42,20 +40,22 @@ import com.example.dinostudy.viewModel.TodoViewModel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class TodoFragment extends Fragment {
 
 
     private ArrayList<TodoItem> arrayList;
     private TodoAdapter todoAdapter;
-    private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private FragmentTodoBinding binding_todo;
     private FragmentTodoPlusContentBinding binding_plus_todo;
-    private ItemTodoBinding binding_item_list;
     private TodoViewModel todoViewModel;
+
+    private DatePickerDialog.OnDateSetListener callbackMethod;
+    private String username;
+    private String curYear, curMonth, curDay;
+
+
 
 
     public TodoFragment(){
@@ -86,24 +86,28 @@ public class TodoFragment extends Fragment {
         todoViewModel = new ViewModelProvider(this).get(TodoViewModel.class);
 
         // username 받아옴
-        String username = getArguments().getString("username");
+        username = getArguments().getString("username");
         System.out.println("------ TodoFragment로 받음--------- : " + username);
-
 
 
         // 현재 날짜 불러옴
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        SimpleDateFormat year = new SimpleDateFormat("yyyy");
+        SimpleDateFormat month = new SimpleDateFormat("MM");
+        SimpleDateFormat day = new SimpleDateFormat("dd");
+
+        curYear = year.format(date);
+        curMonth = month.format(date);
+        curDay = day.format(date);
+
         String curDate = sdf.format(date);
 
+        this.InitializeListener(curDate);
 
-        AtomicInteger n = new AtomicInteger(1);
-        AtomicInteger readCode = new AtomicInteger(200);
-
-        AtomicReference<String> content = new AtomicReference<>("content" + n);
-        AtomicReference<String> check = new AtomicReference<>("check" + n);
-
+        // 현재 날짜로 세팅
+        binding_todo.dayTodo.setText(curDate);
 
         // db내용 불러오기 -> read
         todoViewModel.readTodo(new ReadTodoData(username, curDate));
@@ -220,9 +224,10 @@ public class TodoFragment extends Fragment {
                 todoAdapter.notifyDataSetChanged(); //새로고침
 
             } else if (res.getCode() == 204) { // 데이터 없음
-                todoViewModel.createTodo(new CreateTodoData(username, curDate));
-                todoAdapter.notifyDataSetChanged(); //새로고침
-
+                if (curDate.equals(binding_todo.dayTodo.getText().toString())) {
+                    todoViewModel.createTodo(new CreateTodoData(username, curDate));
+                    todoAdapter.notifyDataSetChanged(); //새로고침
+                }
             } else { // 에러
             }
         });
@@ -329,10 +334,10 @@ public class TodoFragment extends Fragment {
             @Override
             public void onEditCheckClick(View v, int position) {
                 if (arrayList.get(position).getCb_todo() == false) {
-                    todoViewModel.updateCheckTodo(new UpdateCheckTodoData(position + 1, 1, username, curDate));
+                    todoViewModel.updateCheckTodo(new EditTodoCheckData(position + 1, 1, username, curDate));
 
                 } else {
-                    todoViewModel.updateCheckTodo(new UpdateCheckTodoData(position + 1, 0, username, curDate));
+                    todoViewModel.updateCheckTodo(new EditTodoCheckData(position + 1, 0, username, curDate));
                 }
 
                 String content = arrayList.get(position).getTv_todo();
@@ -393,9 +398,56 @@ public class TodoFragment extends Fragment {
             }
         });
 
+        binding_todo.btnTodoDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                todoAdapter.notifyDataSetChanged();
+                String date = binding_todo.dayTodo.getText().toString();
+
+                int y = Integer.parseInt(date.substring(0, 4));
+                int m = Integer.parseInt(date.substring(5, 7));
+                int d = Integer.parseInt(date.substring(8, 10));
+
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), callbackMethod, y, m-1 ,d);
+                dialog.show();
+
+            }
+        });
+
 
         return v;
     }
 
+    public void InitializeListener(String curDate) {
+        todoAdapter.notifyDataSetChanged();
+        callbackMethod = new DatePickerDialog.OnDateSetListener()  {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)  {
+                todoAdapter.notifyDataSetChanged();
+                String mm = Integer.toString(monthOfYear+1);
+                String dd = Integer.toString(dayOfMonth);
+
+                mm = String.format("%02d", Integer.parseInt(mm));
+                dd = String.format("%02d", Integer.parseInt(dd));
+
+                String selDate =year+"."+mm+"."+dd;
+                System.out.println(selDate);
+                arrayList.clear();
+                todoAdapter.notifyDataSetChanged();
+                todoViewModel.readTodo(new ReadTodoData(username,selDate));
+
+                binding_todo.dayTodo.setText(selDate);
+//                selected_day = textview_date.getText().toString();    //textview 선택된 날짜로 변경
+
+                if (!curDate.equals(selDate)) {
+                    binding_todo.btnPlusTodo.setVisibility(View.INVISIBLE);
+                } else {
+                    binding_todo.btnPlusTodo.setVisibility(View.VISIBLE);
+                }
+
+            }
+        };
+    }
 
 }

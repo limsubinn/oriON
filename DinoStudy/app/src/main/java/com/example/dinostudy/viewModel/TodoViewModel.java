@@ -16,8 +16,8 @@ import com.example.dinostudy.model.todo.EditTodoData;
 import com.example.dinostudy.model.todo.ReadTodoData;
 import com.example.dinostudy.model.todo.ReadTodoResponse;
 import com.example.dinostudy.model.todo.EditTodoResponse;
-import com.example.dinostudy.model.todo.UpdateCheckTodoData;
-import com.example.dinostudy.model.todo.UpdateCheckTodoResponse;
+import com.example.dinostudy.model.todo.EditTodoCheckData;
+import com.example.dinostudy.model.todo.EditTodoCheckResponse;
 import com.example.dinostudy.repository.RetrofitClient;
 import com.example.dinostudy.repository.ServiceApi;
 
@@ -31,7 +31,7 @@ public class TodoViewModel extends AndroidViewModel {
     public MutableLiveData<AddTodoResponse> addResult = new MutableLiveData<>();
     public MutableLiveData<EditTodoResponse> editResult = new MutableLiveData<>();
     public MutableLiveData<DeleteTodoResponse> deleteResult = new MutableLiveData<>();
-    public MutableLiveData<UpdateCheckTodoResponse> checkResult = new MutableLiveData<>();
+    public MutableLiveData<EditTodoCheckResponse> checkResult = new MutableLiveData<>();
 
 
 
@@ -48,7 +48,7 @@ public class TodoViewModel extends AndroidViewModel {
     public void createTodo(CreateTodoData data) {
         System.out.println("********* createTodoData *********");
 
-        service.createTodoData(data).enqueue(new Callback<CreateTodoResponse>() {
+        service.createTodo(data).enqueue(new Callback<CreateTodoResponse>() {
             @Override
             public void onResponse(Call<CreateTodoResponse> call, Response<CreateTodoResponse> response) {
                 CreateTodoResponse result = response.body();
@@ -67,7 +67,7 @@ public class TodoViewModel extends AndroidViewModel {
     public void readTodo(ReadTodoData data) {
         System.out.println("********* readTodoData *********");
 
-        service.readTodoData(data).enqueue(new Callback<ReadTodoResponse>() {
+        service.readTodo(data).enqueue(new Callback<ReadTodoResponse>() {
             @Override
             public void onResponse(Call<ReadTodoResponse> call, Response<ReadTodoResponse> response) {
                 ReadTodoResponse result = response.body();
@@ -86,7 +86,7 @@ public class TodoViewModel extends AndroidViewModel {
     public void addTodo(AddTodoData data) {
         System.out.println("********* addTodoData *********");
 
-        service.addTodoData(data).enqueue(new Callback<AddTodoResponse>() {
+        service.addTodo(data).enqueue(new Callback<AddTodoResponse>() {
             @Override
             public void onResponse(Call<AddTodoResponse> call, Response<AddTodoResponse> response) {
                 AddTodoResponse result = response.body();
@@ -105,7 +105,7 @@ public class TodoViewModel extends AndroidViewModel {
     public void editTodo(EditTodoData data){
         System.out.println("********* EditWatchData *********");
 
-        service.editTodoData(data).enqueue(new Callback<EditTodoResponse>() {
+        service.editTodo(data).enqueue(new Callback<EditTodoResponse>() {
             @Override
             public void onResponse(Call<EditTodoResponse> call, Response<EditTodoResponse> response) {
                 EditTodoResponse result = response.body();
@@ -124,7 +124,7 @@ public class TodoViewModel extends AndroidViewModel {
     public void deleteTodo(DeleteTodoData data){
         System.out.println("********* DeleteTodoData *********");
 
-        service.deleteTodoData(data).enqueue(new Callback<DeleteTodoResponse>() {
+        service.deleteTodo(data).enqueue(new Callback<DeleteTodoResponse>() {
             @Override
             public void onResponse(Call<DeleteTodoResponse> call, Response<DeleteTodoResponse> response) {
                 DeleteTodoResponse result = response.body();
@@ -140,19 +140,19 @@ public class TodoViewModel extends AndroidViewModel {
         });
     }
 
-    public void updateCheckTodo(UpdateCheckTodoData data){
+    public void updateCheckTodo(EditTodoCheckData data){
         System.out.println("********* UpdateCheckTodoData *********");
 
-        service.updateCheckTodoData(data).enqueue(new Callback<UpdateCheckTodoResponse>() {
+        service.editTodoCheck(data).enqueue(new Callback<EditTodoCheckResponse>() {
             @Override
-            public void onResponse(Call<UpdateCheckTodoResponse> call, Response<UpdateCheckTodoResponse> response) {
-                UpdateCheckTodoResponse result = response.body();
+            public void onResponse(Call<EditTodoCheckResponse> call, Response<EditTodoCheckResponse> response) {
+                EditTodoCheckResponse result = response.body();
                 checkResult.postValue(result);
                 System.out.println("check resultCode: "+ result.getCode());
             }
 
             @Override
-            public void onFailure(Call<UpdateCheckTodoResponse> call, Throwable t) {
+            public void onFailure(Call<EditTodoCheckResponse> call, Throwable t) {
                 System.out.println("fail");
                 t.printStackTrace();
             }

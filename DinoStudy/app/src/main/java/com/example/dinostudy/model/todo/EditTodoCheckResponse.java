@@ -2,7 +2,7 @@ package com.example.dinostudy.model.todo;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UpdateCheckTodoResponse {
+public class EditTodoCheckResponse {
     @SerializedName("code")
     private int code;
 

@@ -6,8 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.dinostudy.model.CheckEmailData;
-import com.example.dinostudy.model.CheckEmailResponse;
+import com.example.dinostudy.model.user.JoinData;
+import com.example.dinostudy.model.user.JoinResponse;
+import com.example.dinostudy.model.user.LoginData;
+import com.example.dinostudy.model.user.LoginResponse;
 import com.example.dinostudy.repository.RetrofitClient;
 import com.example.dinostudy.repository.ServiceApi;
 
@@ -16,8 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginViewModel extends AndroidViewModel {
-    public MutableLiveData<CheckEmailResponse> resultCode = new MutableLiveData<>();
-    public MutableLiveData<String> userIdLiveData = new MutableLiveData<>();
+    public MutableLiveData<LoginResponse> loginResult = new MutableLiveData<>();
 
     ServiceApi service;
     //private SharedPreferences pref;
@@ -31,25 +32,25 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     // 서버에서 응답받는 코드 -> 응답코드 받아서 성공/실패여부 확인?
-    public void checkUserEmail(CheckEmailData data){
-        System.out.println("#4 checkUserEmail 메서드 실행");
-        System.out.println("email: "+ data);
+    public void login (LoginData data) {
+        System.out.println("********* loginData *********");
 
-        service.checkUserEmail(data).enqueue(new Callback<CheckEmailResponse>() {
+        service.login(data).enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<CheckEmailResponse> call, Response<CheckEmailResponse> response) {
-                CheckEmailResponse result = response.body();
-                resultCode.postValue(result);
-                System.out.println("#5 서버에서 받은 code값: "+ result.getCode());
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                LoginResponse result = response.body();
+                loginResult.postValue(result);
+                System.out.println("login resultCode: "+ result.getCode());
             }
 
             @Override
-            public void onFailure(Call<CheckEmailResponse> call, Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
                 System.out.println("fail");
                 t.printStackTrace();
             }
         });
     }
+
 
 //    public String getLoginMethod(){
 //        return pref.getLoginMethod();

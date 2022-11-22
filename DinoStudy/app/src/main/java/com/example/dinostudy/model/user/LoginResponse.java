@@ -1,8 +1,8 @@
-package com.example.dinostudy.model;
+package com.example.dinostudy.model.user;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CheckEmailResponse {
+public class LoginResponse {
 
     @SerializedName("code")
     private int code;

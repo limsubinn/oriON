@@ -48,7 +48,7 @@ public class WatchViewModel extends AndroidViewModel {
     public void createWatch(CreateWatchData data){
         System.out.println("********* createWatchData *********");
 
-        service.createWatchData(data).enqueue(new Callback<CreateWatchResponse>() {
+        service.createWatch(data).enqueue(new Callback<CreateWatchResponse>() {
             @Override
             public void onResponse(Call<CreateWatchResponse> call, Response<CreateWatchResponse> response) {
                 CreateWatchResponse result = response.body();
@@ -67,7 +67,7 @@ public class WatchViewModel extends AndroidViewModel {
     public void readWatch(ReadWatchData data){
         System.out.println("********* readWatchData *********");
 
-        service.readWatchData(data).enqueue(new Callback<ReadWatchResponse>() {
+        service.readWatch(data).enqueue(new Callback<ReadWatchResponse>() {
             @Override
             public void onResponse(Call<ReadWatchResponse> call, Response<ReadWatchResponse> response) {
                 ReadWatchResponse result = response.body();
@@ -86,7 +86,7 @@ public class WatchViewModel extends AndroidViewModel {
     public void addWatch(AddWatchData data){
         System.out.println("********* addWatchData *********");
 
-        service.addWatchData(data).enqueue(new Callback<AddWatchResponse>() {
+        service.addWatch(data).enqueue(new Callback<AddWatchResponse>() {
             @Override
             public void onResponse(Call<AddWatchResponse> call, Response<AddWatchResponse> response) {
                 AddWatchResponse result = response.body();
@@ -143,7 +143,7 @@ public class WatchViewModel extends AndroidViewModel {
     public void deleteWatch(DeleteWatchData data){
         System.out.println("********* DeleteWatchData *********");
 
-        service.deleteWatchData(data).enqueue(new Callback<DeleteWatchResponse>() {
+        service.deleteWatch(data).enqueue(new Callback<DeleteWatchResponse>() {
             @Override
             public void onResponse(Call<DeleteWatchResponse> call, Response<DeleteWatchResponse> response) {
                 DeleteWatchResponse result = response.body();

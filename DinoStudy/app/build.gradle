@@ -111,5 +111,7 @@ dependencies {
 //        // optional - Test helpers for Lifecycle runtime
 //        testImplementation "androidx.lifecycle:lifecycle-runtime-testing:$lifecycle_version"
 
+    // material calender view
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 
 }

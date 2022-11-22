@@ -1,6 +1,7 @@
 package com.example.dinostudy.view.fragment;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -9,6 +10,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,7 @@ import com.example.dinostudy.databinding.FragmentDiaryPlusContentBinding;
 import com.example.dinostudy.model.diary.AddDiaryData;
 import com.example.dinostudy.model.diary.CreateDiaryData;
 import com.example.dinostudy.model.diary.ReadDiaryData;
+import com.example.dinostudy.model.todo.ReadTodoData;
 import com.example.dinostudy.viewModel.DiaryViewModel;
 
 import java.text.SimpleDateFormat;
@@ -31,6 +34,10 @@ public class DiaryFragment extends Fragment {
     private FragmentDiaryPlusContentBinding binding_plus_diary;
 
     private DiaryViewModel diaryViewModel;
+
+    private DatePickerDialog.OnDateSetListener callbackMethod;
+    private String username;
+    private String curYear, curMonth, curDay;
 
     public DiaryFragment(){
 
@@ -48,13 +55,23 @@ public class DiaryFragment extends Fragment {
         diaryViewModel = new ViewModelProvider(this).get(DiaryViewModel.class);
 
         // username 받아오기
-        String username = getArguments().getString("username");
+        username = getArguments().getString("username");
 
         // 현재 날짜 불러오기
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        SimpleDateFormat year = new SimpleDateFormat("yyyy");
+        SimpleDateFormat month = new SimpleDateFormat("MM");
+        SimpleDateFormat day = new SimpleDateFormat("dd");
+
+        curYear = year.format(date);
+        curMonth = month.format(date);
+        curDay = day.format(date);
+
         String curDate = sdf.format(date);
+
+        this.InitializeListener(curDate);
 
         // 날짜 설정
         binding.dayDiary.setText(curDate);
@@ -69,9 +86,18 @@ public class DiaryFragment extends Fragment {
                 binding.tvCompliment.setMovementMethod(new ScrollingMovementMethod());
                 binding.tvReflection.setMovementMethod(new ScrollingMovementMethod());
             } else if (res.getCode() == 204) { // 데이터 없음
-                // diary에 초기 데이터 삽입
-                diaryViewModel.createDiary(new CreateDiaryData(username, curDate, "", ""));
-            } else { // 에러
+
+                if (curDate.equals(binding.dayDiary.getText().toString())) {
+                    // diary에 초기 데이터 삽입
+                    diaryViewModel.createDiary(new CreateDiaryData(username, curDate, "", ""));
+                } else {
+                    // 텍스트 비우기
+                    binding.tvCompliment.setText(" ");
+                    binding.tvReflection.setText(" ");
+                }
+
+
+                } else { // 에러
 
             }
         });
@@ -114,6 +140,51 @@ public class DiaryFragment extends Fragment {
             }
         });
 
+        binding.btnDiaryDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String date = binding.dayDiary.getText().toString();
+
+                int y = Integer.parseInt(date.substring(0, 4));
+                int m = Integer.parseInt(date.substring(5, 7));
+                int d = Integer.parseInt(date.substring(8, 10));
+
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), callbackMethod, y, m-1 ,d);
+                dialog.show();
+            }
+        });
+
         return binding.getRoot();
+    }
+
+    public void InitializeListener(String curDate)
+
+    {
+        callbackMethod = new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+            {
+                String mm = Integer.toString(monthOfYear+1);
+                String dd = Integer.toString(dayOfMonth);
+
+                mm = String.format("%02d", Integer.parseInt(mm));
+                dd = String.format("%02d", Integer.parseInt(dd));
+
+                String selDate =year+"."+mm+"."+dd;
+                System.out.println(selDate);
+
+                diaryViewModel.readDiary(new ReadDiaryData(username, selDate));
+
+                binding.dayDiary.setText(selDate);
+//                selected_day = textview_date.getText().toString();    //textview 선택된 날짜로 변경
+
+                if (!curDate.equals(selDate)) {
+                    binding.btnDiaryPlus.setVisibility(View.INVISIBLE);
+                } else {
+                    binding.btnDiaryPlus.setVisibility(View.VISIBLE);
+                }
+            }
+        };
     }
 }

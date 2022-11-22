@@ -34,7 +34,7 @@ public class DiaryViewModel extends AndroidViewModel {
     public void readDiary(ReadDiaryData data) {
         System.out.println("********* readDiaryData *********");
 
-        service.readDiaryData(data).enqueue(new Callback<ReadDiaryResponse>() {
+        service.readDiary(data).enqueue(new Callback<ReadDiaryResponse>() {
             @Override
             public void onResponse(Call<ReadDiaryResponse> call, Response<ReadDiaryResponse> response) {
                 ReadDiaryResponse result = response.body();
@@ -53,7 +53,7 @@ public class DiaryViewModel extends AndroidViewModel {
     public void createDiary(CreateDiaryData data){
         System.out.println("********* createDiaryData *********");
 
-        service.createDiaryData(data).enqueue(new Callback<CreateDiaryResponse>() {
+        service.createDiary(data).enqueue(new Callback<CreateDiaryResponse>() {
             @Override
             public void onResponse(Call<CreateDiaryResponse> call, Response<CreateDiaryResponse> response) {
                 CreateDiaryResponse result = response.body();
@@ -72,7 +72,7 @@ public class DiaryViewModel extends AndroidViewModel {
     public void addDiary(AddDiaryData data){
         System.out.println("********* addDiaryData *********");
 
-        service.addDiaryData(data).enqueue(new Callback<AddDiaryResponse>() {
+        service.addDiary(data).enqueue(new Callback<AddDiaryResponse>() {
             @Override
             public void onResponse(Call<AddDiaryResponse> call, Response<AddDiaryResponse> response) {
                 AddDiaryResponse result = response.body();
