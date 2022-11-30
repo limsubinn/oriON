@@ -8,4 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="sky">#B7EEFF</color>
+
+    <color name="state1">#CEEEFF</color>
+    <color name="state2">#90D9FF</color>
+    <color name="state3">#33BAFF</color>
+    <color name="state4">#00A0F3</color>
 </resources>
