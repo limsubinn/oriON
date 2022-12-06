@@ -20,19 +20,6 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder>{
     Context context;
     ArrayList<SubjectItem> arrayList;
 
-    //아이템 클릭 리스너 인터페이스
-    public interface OnItemClickListener{
-        void onItemClick(View v, int position); // 아이템 클릭
-    }
-
-    //리스너 객체 참조 변수
-    private ChartAdapter.OnItemClickListener mListener = null;
-
-    //리스너 객체 참조를 어댑터에 전달 메서드
-    public void setOnItemClickListener(ChartAdapter.OnItemClickListener listener) {
-        this.mListener = listener;
-    }
-
     // ViewHolder 객체
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -64,25 +51,10 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder>{
     }
 
 
-
     @Override
     // ViewHolder가 실제로 데이터를 표시해야 할 때 호출되는 함수
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bindItem(arrayList.get(position));
-
-        // 아이템 클릭
-        holder.itemView.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition ();
-                if (position!=RecyclerView.NO_POSITION){
-                    if (mListener!=null){
-                        mListener.onItemClick(v, position);
-                    }
-                }
-            }
-        });
-
     }
 
     @Override

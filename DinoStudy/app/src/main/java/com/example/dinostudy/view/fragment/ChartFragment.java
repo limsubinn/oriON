@@ -15,14 +15,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.dinostudy.databinding.FragmentChartBinding;
 import com.example.dinostudy.model.chart.ReadChartData;
 import com.example.dinostudy.view.adapter.ChartAdapter;
-import com.example.dinostudy.view.decorator.FourDecorator;
+import com.example.dinostudy.view.decorator.NotSelectedFourDecorator;
+import com.example.dinostudy.view.decorator.NotSelectedThreeDecorator;
+import com.example.dinostudy.view.decorator.NotSelectedTwoDecorator;
+import com.example.dinostudy.view.decorator.SelectedFourDecorator;
+import com.example.dinostudy.view.decorator.NotSelectedOneDecorator;
 import com.example.dinostudy.view.decorator.SaturdayDecorator;
 import com.example.dinostudy.view.decorator.SelectDecorator;
 import com.example.dinostudy.view.decorator.SundayDecorator;
-import com.example.dinostudy.view.decorator.OneDecorator;
-import com.example.dinostudy.view.decorator.ThreeDecorator;
+import com.example.dinostudy.view.decorator.SelectedOneDecorator;
+import com.example.dinostudy.view.decorator.SelectedThreeDecorator;
 import com.example.dinostudy.view.decorator.TodayDecorator;
-import com.example.dinostudy.view.decorator.TwoDecorator;
+import com.example.dinostudy.view.decorator.SelectedTwoDecorator;
 import com.example.dinostudy.view.item.SubjectItem;
 import com.example.dinostudy.viewModel.ChartViewModel;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -203,14 +207,29 @@ public class ChartFragment extends Fragment {
                     Date date = formatter.parse(getDate);
 
                     if (hour >= 6) {
-                        dayDecorator = new FourDecorator(date, getActivity());
+                        if (res.getResult().get(i).getCurdate().equals(res.getCurdate())) {
+                            dayDecorator = new SelectedFourDecorator(date, getActivity());
+                        } else {
+                            dayDecorator = new NotSelectedFourDecorator(date, getActivity());
+                        }
                     } else if (hour >= 4) {
-                        dayDecorator = new ThreeDecorator(date, getActivity());
+                        if (res.getResult().get(i).getCurdate().equals(res.getCurdate())) {
+                            dayDecorator = new SelectedThreeDecorator(date, getActivity());
+                        } else {
+                            dayDecorator = new NotSelectedThreeDecorator(date, getActivity());
+                        }
                     } else if (hour >= 2) {
-                        dayDecorator = new TwoDecorator(date, getActivity());
+                        if (res.getResult().get(i).getCurdate().equals(res.getCurdate())) {
+                            dayDecorator = new SelectedTwoDecorator(date, getActivity());
+                        } else {
+                            dayDecorator = new NotSelectedTwoDecorator(date, getActivity());
+                        }
                     } else if ((hour < 2) && ((hour > 0) || (min > 0) || (sec > 0))) {
-                        dayDecorator = new OneDecorator(date, getActivity());
-                        System.out.println("one");
+                        if (res.getResult().get(i).getCurdate().equals(res.getCurdate())) {
+                            dayDecorator = new SelectedOneDecorator(date, getActivity());
+                        } else {
+                            dayDecorator = new NotSelectedOneDecorator(date, getActivity());
+                        }
                     }
 
                     // 데코레이터
