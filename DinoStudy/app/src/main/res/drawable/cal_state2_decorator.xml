@@ -7,5 +7,5 @@
     <item
         android:state_pressed="true"
         android:drawable="@drawable/cal_state2_true" />
-    <item android:drawable="@android:color/transparent" />
+    <item android:drawable="@drawable/cal_state2_false" />
 </selector>

@@ -1,5 +1,7 @@
 package com.example.dinostudy.repository;
 
+import com.example.dinostudy.model.chart.ReadChartData;
+import com.example.dinostudy.model.chart.ReadChartResponse;
 import com.example.dinostudy.model.diary.AddDiaryData;
 import com.example.dinostudy.model.diary.AddDiaryResponse;
 import com.example.dinostudy.model.todo.AddTodoData;
@@ -38,6 +40,8 @@ import com.example.dinostudy.model.diary.ReadDiaryData;
 import com.example.dinostudy.model.diary.ReadDiaryResponse;
 import com.example.dinostudy.model.watch.ReadWatchData;
 import com.example.dinostudy.model.watch.ReadWatchResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -114,4 +118,6 @@ public interface ServiceApi {
     @POST("/todo/delete")
     Call<DeleteTodoResponse> deleteTodo (@Body DeleteTodoData data);
 
+    @POST("/chart/read")
+    Call<ReadChartResponse> readChart (@Body ReadChartData data);
     }

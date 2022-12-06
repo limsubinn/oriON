@@ -12,12 +12,12 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import java.util.Calendar;
 import java.util.Date;
 
-public class TestDecorator implements DayViewDecorator {
+public class ThreeDecorator implements DayViewDecorator {
     private CalendarDay date;
     private final Calendar calendar = Calendar.getInstance();
     Context context;
 
-    public TestDecorator(Date value, Context context) {
+    public ThreeDecorator(Date value, Context context) {
         date = CalendarDay.from(value);
         this.context = context;
     }
@@ -30,5 +30,5 @@ public class TestDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.cal_state1_decorator));}
+        view.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.cal_state3_decorator));}
 }
