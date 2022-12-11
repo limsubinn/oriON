@@ -48,7 +48,7 @@ public class TodoViewModel extends AndroidViewModel {
     public void createTodo(CreateTodoData data) {
         System.out.println("********* createTodoData *********");
 
-        service.createTodo(data).enqueue(new Callback<CreateTodoResponse>() {
+        service.createPost(data).enqueue(new Callback<CreateTodoResponse>() {
             @Override
             public void onResponse(Call<CreateTodoResponse> call, Response<CreateTodoResponse> response) {
                 CreateTodoResponse result = response.body();

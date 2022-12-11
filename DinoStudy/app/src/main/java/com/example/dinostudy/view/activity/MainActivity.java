@@ -16,12 +16,13 @@ import android.view.View;
 
 import com.example.dinostudy.R;
 import com.example.dinostudy.databinding.ActivityMainBinding;
+import com.example.dinostudy.view.fragment.BoardFragment;
 import com.example.dinostudy.view.fragment.ChartFragment;
-import com.example.dinostudy.view.fragment.CommunityFragment;
 import com.example.dinostudy.view.fragment.DiaryFragment;
 import com.example.dinostudy.view.fragment.HeartFragment;
 import com.example.dinostudy.view.fragment.TodoFragment;
 import com.example.dinostudy.view.fragment.WatchFragment;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -144,13 +145,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                CommunityFragment fragment_community = new CommunityFragment();
+                BoardFragment fragment_board = new BoardFragment();
 
                 Bundle bundle = new Bundle();
                 bundle.putString("username", username);
-                fragment_community.setArguments(bundle);
+                fragment_board.setArguments(bundle);
 
-                transaction.replace(binding.frame.getId(),fragment_community);
+                transaction.replace(binding.frame.getId(),fragment_board);
                 transaction.commit();
 
                 binding.btnChk.setImageResource(R.drawable.checkbox_n);
@@ -203,6 +204,29 @@ public class MainActivity extends AppCompatActivity {
                 binding.btnCommu.setImageResource(R.drawable.bubble_n);
                 binding.btnDiary.setImageResource(R.drawable.diary_n);
                 binding.btnHeart.setImageResource(R.drawable.heart_y);
+            }
+        });
+
+        binding.navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
+                binding.drawerLayout.closeDrawers();
+
+                int id = item.getItemId();
+                String title = item.getTitle().toString();
+
+                if(id == R.id.item_info){
+                    //Intent intent = new Intent(getApplicationContext(), ??.class);
+                    //startActivity(intent);
+                } else if(id == R.id.item_mission){
+                    Intent intent = new Intent(getApplicationContext(), MissionActivity.class);
+                    startActivity(intent);
+                } else if(id == R.id.item_group){
+
+                }
+
+                return true;
             }
         });
 

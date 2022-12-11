@@ -28,6 +28,15 @@
         <activity
             android:name=".view.activity.JoinActivity">
         </activity>
+        <activity
+            android:name=".view.activity.MissionActivity">
+        </activity>
+        <activity
+            android:name=".view.activity.PostActivity">
+        </activity>
+        <activity
+            android:name=".view.activity.WritingActivity">
+        </activity>
     </application>
 
 </manifest>

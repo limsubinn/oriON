@@ -41,8 +41,6 @@ import com.example.dinostudy.model.diary.ReadDiaryResponse;
 import com.example.dinostudy.model.watch.ReadWatchData;
 import com.example.dinostudy.model.watch.ReadWatchResponse;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -101,7 +99,7 @@ public interface ServiceApi {
     Call<ReadDiaryResponse> readDiary (@Body ReadDiaryData data);
 
     @POST("/todo/create")
-    Call<CreateTodoResponse> createTodo (@Body CreateTodoData data);
+    Call<CreateTodoResponse> createPost(@Body CreateTodoData data);
 
     @POST("/todo/read")
     Call<ReadTodoResponse> readTodo (@Body ReadTodoData data);
@@ -120,4 +118,7 @@ public interface ServiceApi {
 
     @POST("/chart/read")
     Call<ReadChartResponse> readChart (@Body ReadChartData data);
+
+    @POST("/board/post/create")
+    Call<com.example.dinostudy.model.board.CreatePostResponse> createPost (@Body com.example.dinostudy.model.board.CreatePostData data);
     }

@@ -64,7 +64,6 @@ public class ChartFragment extends Fragment {
 
         // 현재 날짜 불러오기
         long now = System.currentTimeMillis();
-        System.out.println("현재날짜" + now);
         Date curdate = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         String curDate = sdf.format(curdate);
@@ -72,7 +71,7 @@ public class ChartFragment extends Fragment {
         // 오늘 날짜 & 주말 데코레이터 달기
         binding.calendarView.addDecorators(new TodayDecorator(), new SaturdayDecorator(), new SundayDecorator());
 
-        // 선택 날짜 데코레이터 달기,, -> 미완성임
+        // 선택 날짜 데코레이터 달기
         binding.calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
