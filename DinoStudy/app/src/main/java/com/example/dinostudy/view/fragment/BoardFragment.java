@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +19,7 @@ import com.example.dinostudy.databinding.FragmentBoardBinding;
 import com.example.dinostudy.view.activity.WritingActivity;
 import com.example.dinostudy.view.adapter.BoardAdapter;
 import com.example.dinostudy.view.item.BoardItem;
+import com.example.dinostudy.viewModel.BoardViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -27,6 +29,7 @@ import java.util.Date;
 public class BoardFragment extends Fragment {
 
     private FragmentBoardBinding binding;
+    private BoardViewModel boardViewModel;
     private ArrayList<BoardItem> arrayList;
     private BoardAdapter boardAdapter;
     private LinearLayoutManager linearLayoutManager;
@@ -41,6 +44,9 @@ public class BoardFragment extends Fragment {
         binding = FragmentBoardBinding.inflate(inflater, container, false);
         ct = container.getContext();
 
+        boardViewModel = new ViewModelProvider(this).get(BoardViewModel.class);
+
+
         // username 받아오기
         String username = getArguments().getString("username");
 
@@ -54,10 +60,42 @@ public class BoardFragment extends Fragment {
         binding.rvBoard.setLayoutManager(linearLayoutManager);
 
         arrayList = new ArrayList<>();  //mDatas
-        arrayList.add(new BoardItem("username", "title", "date", 2));
+//        arrayList.add(new BoardItem("username", "title", "date", 2));
 
         boardAdapter = new BoardAdapter(ct, arrayList);
         binding.rvBoard.setAdapter(boardAdapter);
+
+        //db내용 불러오기
+        boardViewModel.readPost();
+
+
+
+        // 서버에서 정상적인 값 받음
+        boardViewModel.readPostResult.observe(getViewLifecycleOwner(), res -> {
+            System.out.println("*****readPost 서버에서 값 잘 받음*******");
+
+            int n = res.getResult().size();
+
+            // 데이터 존재 -> 200
+            // comment 개수 불러와야함
+            if (res.getCode() == 200) {
+                for(int i=n-1; i>=0; i--){
+
+                    String writer = res.getResult().get(i).getWriter();
+                    String title = res.getResult().get(i).getTitle();
+                    String curdate = res.getResult().get(i).getCurdate();
+                    int cnt = res.getResult().get(i).getN();
+
+                    BoardItem boardItem = new BoardItem(writer, title, curdate, cnt);
+                    arrayList.add(boardItem);
+                }
+                boardAdapter.notifyDataSetChanged(); //새로고침
+
+            }else if(res.getCode() == 204) {
+                System.out.println("에러");
+            }
+        });
+
 
         // 글쓰기 버튼
         binding.btnWrite.setOnClickListener(new View.OnClickListener() {

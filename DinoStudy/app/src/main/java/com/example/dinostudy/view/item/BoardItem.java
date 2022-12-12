@@ -1,7 +1,6 @@
 package com.example.dinostudy.view.item;
 
 public class BoardItem {
-
     private String username;
     private String title;
     private String date;

@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.dinostudy.databinding.ActivityWriteBinding;
 import com.example.dinostudy.model.board.CreatePostData;
-import com.example.dinostudy.model.todo.CreateTodoData;
 import com.example.dinostudy.viewModel.BoardViewModel;
 
 import java.text.SimpleDateFormat;
@@ -48,7 +47,7 @@ public class WritingActivity extends AppCompatActivity {
                 String content = binding.etContents.getText().toString();
 
                 // 데이터 삽입
-                boardViewModel.createPost(new CreatePostData(username, curDate, title, content));
+                boardViewModel.createPost(new CreatePostData(username, curDate, title, content, 0));
 
 //                Intent intent = new Intent(getBaseContext(),PostActivity.class);
 //                intent.putExtra("title", title);

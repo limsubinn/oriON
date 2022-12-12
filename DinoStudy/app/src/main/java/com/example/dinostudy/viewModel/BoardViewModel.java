@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.dinostudy.model.board.CreatePostData;
 import com.example.dinostudy.model.board.CreatePostResponse;
+import com.example.dinostudy.model.board.ReadPostResponse;
 import com.example.dinostudy.model.todo.CreateTodoData;
 import com.example.dinostudy.model.todo.CreateTodoResponse;
 import com.example.dinostudy.repository.RetrofitClient;
@@ -19,6 +20,7 @@ import retrofit2.Response;
 
 public class BoardViewModel extends AndroidViewModel {
     public MutableLiveData<CreatePostResponse> createPostResult = new MutableLiveData<>();
+    public MutableLiveData<ReadPostResponse> readPostResult = new MutableLiveData<>();
 
     ServiceApi service;
 
@@ -43,6 +45,25 @@ public class BoardViewModel extends AndroidViewModel {
             @Override
             public void onFailure(Call<CreatePostResponse> call, Throwable t) {
                 System.out.println("fail");
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void readPost() {
+        System.out.println("********* readPostData *********");
+
+        service.readPost().enqueue(new Callback<ReadPostResponse>() {
+            @Override
+            public void onResponse(Call<ReadPostResponse> call, Response<ReadPostResponse> response) {
+                ReadPostResponse result = response.body();
+                readPostResult.postValue(result);
+                System.out.println("read post resultCode: " + result.getCode());
+            }
+
+            @Override
+            public void onFailure(Call<ReadPostResponse> call, Throwable t) {
+                System.out.println("ReadPostResponse fail");
                 t.printStackTrace();
             }
         });

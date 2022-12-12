@@ -15,10 +15,14 @@ public class CreatePostData {
     @SerializedName("content")
     private String content;
 
-    public CreatePostData(String username, String curdate, String title, String content) {
+    @SerializedName("n")
+    private int n;
+
+    public CreatePostData(String username, String curdate, String title, String content, int n) {
         this.username = username;
         this.curdate = curdate;
         this.title = title;
         this.content = content;
+        this.n = n;
     }
 }
