@@ -13,6 +13,10 @@ public class LoginResponse {
     @SerializedName("userEmail")
     private String userEmail;
 
+    @SerializedName("coin")
+    private int coin;
+
+
     public int getCode() {
         return code;
     }
@@ -24,4 +28,6 @@ public class LoginResponse {
     public String getUserEmail() {
         return userEmail;
     }
+
+    public int getCoin() { return coin; }
 }

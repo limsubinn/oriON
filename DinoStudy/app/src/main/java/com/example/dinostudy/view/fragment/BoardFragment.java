@@ -10,21 +10,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dinostudy.R;
 import com.example.dinostudy.databinding.FragmentBoardBinding;
-import com.example.dinostudy.view.activity.WritingActivity;
+import com.example.dinostudy.view.activity.MainActivity;
 import com.example.dinostudy.view.adapter.BoardAdapter;
 import com.example.dinostudy.view.item.BoardItem;
 import com.example.dinostudy.viewModel.BoardViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class BoardFragment extends Fragment {
 
@@ -32,11 +29,31 @@ public class BoardFragment extends Fragment {
     private BoardViewModel boardViewModel;
     private ArrayList<BoardItem> arrayList;
     private BoardAdapter boardAdapter;
+    private String username;
     private LinearLayoutManager linearLayoutManager;
 
     Context ct;
+    MainActivity mainActivity;
 
-    public BoardFragment(){
+
+    public BoardFragment() {
+    }
+
+    // 메인 액티비티 위에 올린다.
+
+    //onAttach : 프래그먼트와 액티비티가 연결될때 호출되는 메서드
+    //onDetach : 프래그먼트와 액티비티의 연결이 끊길때 호출되는 메서드
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mainActivity = (MainActivity) getActivity();
+    }
+
+    // 메인 액티비티에서 내려온다.
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mainActivity = null;
     }
 
     @Override
@@ -45,16 +62,6 @@ public class BoardFragment extends Fragment {
         ct = container.getContext();
 
         boardViewModel = new ViewModelProvider(this).get(BoardViewModel.class);
-
-
-        // username 받아오기
-        String username = getArguments().getString("username");
-
-//        // 현재 날짜 불러오기
-//        long now = System.currentTimeMillis();
-//        Date curdate = new Date(now);
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-//        String curDate = sdf.format(curdate);
 
         linearLayoutManager = new LinearLayoutManager(ct);
         binding.rvBoard.setLayoutManager(linearLayoutManager);
@@ -65,51 +72,85 @@ public class BoardFragment extends Fragment {
         boardAdapter = new BoardAdapter(ct, arrayList);
         binding.rvBoard.setAdapter(boardAdapter);
 
-        //db내용 불러오기
-        boardViewModel.readPost();
-
-
-
-        // 서버에서 정상적인 값 받음
-        boardViewModel.readPostResult.observe(getViewLifecycleOwner(), res -> {
-            System.out.println("*****readPost 서버에서 값 잘 받음*******");
-
-            int n = res.getResult().size();
-
-            // 데이터 존재 -> 200
-            // comment 개수 불러와야함
-            if (res.getCode() == 200) {
-                for(int i=n-1; i>=0; i--){
-
-                    String writer = res.getResult().get(i).getWriter();
-                    String title = res.getResult().get(i).getTitle();
-                    String curdate = res.getResult().get(i).getCurdate();
-                    int cnt = res.getResult().get(i).getN();
-
-                    BoardItem boardItem = new BoardItem(writer, title, curdate, cnt);
-                    arrayList.add(boardItem);
-                }
-                boardAdapter.notifyDataSetChanged(); //새로고침
-
-            }else if(res.getCode() == 204) {
-                System.out.println("에러");
-            }
-        });
-
-
-        // 글쓰기 버튼
-        binding.btnWrite.setOnClickListener(new View.OnClickListener() {
+        // username 받기
+        getParentFragmentManager().setFragmentResultListener("goto_board", getViewLifecycleOwner(), new FragmentResultListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), WritingActivity.class);
-                intent.putExtra("username", username);
-                startActivity(intent);
+            public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
+                String username = bundle.getString("username");
+
+                // 글쓰기 버튼
+                binding.btnWrite.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("username", username);
+                        getParentFragmentManager().setFragmentResult("board_to_write", bundle);
+
+                        mainActivity.fragmentChange(1);
+                    }
+                });
+
+                // db 내용 불러오기
+                boardViewModel.readPost();
+
+                // 서버에서 정상적인 값 받음
+                boardViewModel.readPostResult.observe(getViewLifecycleOwner(), res -> {
+                    System.out.println("*****readPost 서버에서 값 잘 받음*******");
+
+                    int n = res.getResult().size();
+
+                    if (res.getCode() == 200) {
+                        for(int i=n-1; i>=0; i--){
+
+                            String writer = res.getResult().get(i).getWriter();
+                            String title = res.getResult().get(i).getTitle();
+                            String curdate = res.getResult().get(i).getCurdate();
+                            String content = res.getResult().get(i).getContent();
+                            int cnt = res.getResult().get(i).getN();
+
+                            BoardItem boardItem = new BoardItem(writer, title, curdate, content, cnt);
+                            arrayList.add(boardItem);
+                        }
+                        boardAdapter.notifyDataSetChanged(); //새로고침
+
+                    } else {
+                        System.out.println("에러");
+                    }
+                });
+
+                // 리사이클러뷰 아이템 클릭 이벤트
+                boardAdapter.setOnItemClickListener (new BoardAdapter.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(View v, int position) {
+                        Bundle result = new Bundle();
+                        result.putString("writer", arrayList.get(position).getUsername());
+                        result.putString("title", arrayList.get(position).getTitle());
+                        result.putString("date", arrayList.get(position).getDate());
+                        result.putString("content", arrayList.get(position).getContent());
+                        result.putString("username", username);
+                        // result.putInt("comment", arrayList.get(position).getComment());
+
+                        getParentFragmentManager().setFragmentResult("board_to_post", result);
+                        mainActivity.fragmentChange(2);
+                    }
+
+                    @Override
+                    public void onEditClick(View v, int position) {
+
+                    }
+
+                    @Override
+                    public void onDeleteClick(View v, int position) {
+
+                    }
+                });
+
             }
         });
 
 
         return binding.getRoot();
+
     }
-
-
 }

@@ -113,7 +113,11 @@ public class LoginActivity extends AppCompatActivity{
                                 if(res.getCode() == 200) {
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     intent.putExtra("nickname", res.getMessage()); // username 보내기
+                                    String coin = Integer.toString(res.getCoin());
+                                    intent.putExtra("coin", coin);
+                                    intent.putExtra("email",res.getUserEmail());
                                     startActivity(intent);
+
                                 } else if (res.getCode() == 204) {
                                     Intent intent = new Intent(getApplicationContext(), JoinActivity.class);
                                     intent.putExtra("email", g_mail);
