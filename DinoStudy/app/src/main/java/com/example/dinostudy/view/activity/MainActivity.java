@@ -2,13 +2,9 @@ package com.example.dinostudy.view.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -25,15 +21,14 @@ import android.widget.TextView;
 
 import com.example.dinostudy.R;
 import com.example.dinostudy.databinding.ActivityMainBinding;
-import com.example.dinostudy.view.adapter.BoardAdapter;
 import com.example.dinostudy.view.fragment.BoardFragment;
 import com.example.dinostudy.view.fragment.ChartFragment;
 import com.example.dinostudy.view.fragment.DiaryFragment;
 import com.example.dinostudy.view.fragment.HeartFragment;
-import com.example.dinostudy.view.fragment.PostFragment;
+import com.example.dinostudy.view.fragment.BoardPostFragment;
 import com.example.dinostudy.view.fragment.TodoFragment;
 import com.example.dinostudy.view.fragment.WatchFragment;
-import com.example.dinostudy.view.fragment.WriteFragment;
+import com.example.dinostudy.view.fragment.BoardWriteFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -351,10 +346,10 @@ public class MainActivity extends AppCompatActivity {
             BoardFragment boardFragment = new BoardFragment();
             return boardFragment;
         } else if (position == 1) {
-            WriteFragment writeFragment = new WriteFragment();
+            BoardWriteFragment writeFragment = new BoardWriteFragment();
             return writeFragment;
         } else if (position == 2) {
-            PostFragment postFragment = new PostFragment();
+            BoardPostFragment postFragment = new BoardPostFragment();
             return postFragment;
         }else {
             return null;

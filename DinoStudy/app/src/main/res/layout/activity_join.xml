@@ -24,8 +24,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/dunggeunmo"
             android:textColor="@color/black"
             android:textSize="25dp"
+            android:textStyle="bold"
             android:text="오리On이 처음이시군요!" />
 
         <TextView
@@ -33,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/dunggeunmo"
             android:textColor="#7C7C7C"
             android:text="아래 항목을 기입해주세요" />
 
@@ -56,6 +59,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="닉네임"
+                    android:fontFamily="@font/dunggeunmo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/et_nickname"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -66,6 +70,7 @@
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="100dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/dunggeunmo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textview1" />
@@ -73,8 +78,10 @@
                 <Button
                     android:id="@+id/btn_check"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:text="중복체크"
+                    android:fontFamily="@font/dunggeunmo"
+                    android:background="@drawable/edge_join_btn"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -85,20 +92,23 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="50dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/dunggeunmo"
                     android:text="생년월일" />
 
                 <Button
                     android:id="@+id/btn_birth"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_marginHorizontal="30dp"
                     android:gravity="center"
+                    android:fontFamily="@font/dunggeunmo"
+                    android:background="@drawable/edge_join_btn"
                     android:text="0000년 00월 00일" />
 
             </LinearLayout>
@@ -107,13 +117,14 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="50dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="성별"
+                    android:fontFamily="@font/dunggeunmo"
                     android:layout_gravity="center"/>
 
                 <View
@@ -131,6 +142,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="30dp"
+                        android:fontFamily="@font/dunggeunmo"
                         android:text="남" />
 
                     <RadioButton
@@ -138,6 +150,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="30dp"
+                        android:fontFamily="@font/dunggeunmo"
                         android:text="여" />
 
                 </RadioGroup>
@@ -149,9 +162,12 @@
         <Button
             android:id="@+id/btn_join"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:background="@drawable/edge_join_btn"
+            android:backgroundTint="#FFED73"
             android:text="시작하기!" />
 
     </LinearLayout>

@@ -12,6 +12,7 @@
 
         <TextView
             android:id="@+id/day_stopwatch"
+            android:fontFamily="@font/dunggeunmo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_stopwatch"
@@ -19,17 +20,20 @@
             android:layout_marginTop="50dp"
             android:padding="10dp"
             android:text="date"
+            android:textColor="@color/black"
             android:textSize="20dp" />
 
 
         <TextView
             android:id="@+id/subject"
+            android:fontFamily="@font/dunggeunmo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/day_stopwatch"
             android:layout_centerInParent="true"
-            android:textSize="30dp"
             android:text="subject"
-            android:layout_below="@+id/day_stopwatch"/>
+            android:textColor="@color/black"
+            android:textSize="30dp" />
 
 
 
@@ -52,10 +56,12 @@
 
             <TextView
                 android:id="@+id/study_time"
+                android:fontFamily="@font/dunggeunmo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:textSize="50dp"
+                android:textColor="@color/black"
                 android:text="00:00:00" />
 
             <LinearLayout
@@ -66,20 +72,33 @@
 
                 <Button
                     android:id="@+id/btn_start"
+                    android:fontFamily="@font/dunggeunmo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edge_join_btn"
+                    android:backgroundTint="#929678"
+                    android:textColor="@color/white"
                     android:text="시작" />
 
                 <Button
                     android:id="@+id/btn_pause"
+                    android:fontFamily="@font/dunggeunmo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/edge_join_btn"
+                    android:backgroundTint="#929678"
+                    android:textColor="@color/white"
                     android:text="정지" />
 
                 <Button
                     android:id="@+id/btn_reset"
+                    android:fontFamily="@font/dunggeunmo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edge_join_btn"
+                    android:backgroundTint="#929678"
+                    android:textColor="@color/white"
                     android:text="초기화" />
 
             </LinearLayout>

@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         xmlns:tools="http://schemas.android.com/tools"
         tools:context=".view.activity.LoginActivity"
-        android:background="@color/sky">
+        android:background="@drawable/cloud_background">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -14,12 +14,21 @@
             android:orientation="vertical"
             android:layout_centerInParent="true">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher"
+                android:layout_gravity="center_horizontal" />
+
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Dino Study!"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/dunggeunmo"
+                android:textColor="@color/black"
+                android:text="오리On!"
                 android:textSize="30dp" />
 
             <com.google.android.gms.common.SignInButton
@@ -27,18 +36,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_below="@+id/tv_title" />
+                android:layout_below="@+id/tv_title"
+                android:layout_marginTop="20dp"/>
 
         </LinearLayout>
 
-
-
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/background_pixel_ground" />
+            android:layout_height="match_parent"
+            android:scaleType="fitEnd"
+            android:src="@drawable/join_ground" />
 
     </RelativeLayout>
 </layout>

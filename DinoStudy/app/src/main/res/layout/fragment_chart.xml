@@ -29,11 +29,12 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:fontFamily="@font/dunggeunmo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="0~2시간"
+                android:text="0-2시간"
                 android:layout_weight="2" />
 
             <View
@@ -43,11 +44,12 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:fontFamily="@font/dunggeunmo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="2~4시간"
+                android:text="2-4시간"
                 android:layout_weight="2" />
 
             <View
@@ -57,11 +59,12 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:fontFamily="@font/dunggeunmo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="6~8시간"
+                android:text="6-8시간"
                 android:layout_weight="2" />
 
             <View
@@ -71,11 +74,12 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:fontFamily="@font/dunggeunmo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="8~시간"
+                android:text="8+시간"
                 android:layout_weight="2" />
 
         </LinearLayout>

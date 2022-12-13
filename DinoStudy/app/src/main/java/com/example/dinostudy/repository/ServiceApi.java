@@ -1,9 +1,19 @@
 package com.example.dinostudy.repository;
 
+import com.example.dinostudy.model.board.CountCommentData;
+import com.example.dinostudy.model.board.CountCommentResponse;
 import com.example.dinostudy.model.board.CreateCommentData;
 import com.example.dinostudy.model.board.CreateCommentResponse;
 import com.example.dinostudy.model.board.CreatePostData;
 import com.example.dinostudy.model.board.CreatePostResponse;
+import com.example.dinostudy.model.board.DeleteCommentData;
+import com.example.dinostudy.model.board.DeleteCommentResponse;
+import com.example.dinostudy.model.board.DeletePostData;
+import com.example.dinostudy.model.board.DeletePostResponse;
+import com.example.dinostudy.model.board.EditCommentData;
+import com.example.dinostudy.model.board.EditCommentResponse;
+import com.example.dinostudy.model.board.EditPostData;
+import com.example.dinostudy.model.board.EditPostResponse;
 import com.example.dinostudy.model.board.ReadCommentData;
 import com.example.dinostudy.model.board.ReadCommentResponse;
 import com.example.dinostudy.model.board.ReadPostResponse;
@@ -133,9 +143,24 @@ public interface ServiceApi {
     @GET("/board/post/read")
     Call<ReadPostResponse> readPost();
 
+    @POST("/board/post/edit")
+    Call<EditPostResponse> editPost(@Body EditPostData data);
+
+    @POST("/board/post/delete")
+    Call<DeletePostResponse> deletePost(@Body DeletePostData data);
+
     @POST("/board/comment/create")
     Call<CreateCommentResponse> createComment(@Body CreateCommentData data);
 
     @POST("board/comment/read")
     Call<ReadCommentResponse> readComment(@Body ReadCommentData data);
+
+    @POST("board/comment/count")
+    Call<CountCommentResponse> countComment(@Body CountCommentData data);
+
+    @POST("board/comment/edit")
+    Call<EditCommentResponse> editComment(@Body EditCommentData data);
+
+    @POST("board/comment/delete")
+    Call<DeleteCommentResponse> deleteComment(@Body DeleteCommentData data);
 }

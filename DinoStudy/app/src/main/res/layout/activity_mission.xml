@@ -24,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/dunggeunmo"
             android:text="✨미션으로 코인 벌기" />
 
         <LinearLayout
@@ -36,6 +37,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/dunggeunmo"
                 android:text=" MISSION1" />
 
             <FrameLayout
@@ -58,6 +60,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/dunggeunmo"
                         android:text="공부 시간 2시간을 달성하라!" />
 
                     <ProgressBar
@@ -86,6 +89,7 @@
                     android:background="@drawable/edge_btn"
                     android:visibility="invisible"
                     android:textColor="@color/white"
+                    android:fontFamily="@font/dunggeunmo"
                     android:text="보상받기" />
 
             </FrameLayout>
@@ -101,6 +105,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/dunggeunmo"
                 android:text=" MISSION2" />
 
             <FrameLayout
@@ -123,6 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/dunggeunmo"
                         android:text="To Do 5개를 달성하라!" />
 
                     <ProgressBar
@@ -150,6 +156,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/edge_btn"
                     android:visibility="invisible"
+                    android:fontFamily="@font/dunggeunmo"
                     android:textColor="@color/white"
                     android:text="보상받기" />
 
@@ -166,6 +173,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/dunggeunmo"
                 android:text=" MISSION3" />
 
             <FrameLayout
@@ -188,6 +196,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/dunggeunmo"
                         android:text="공부 시간 6시간을 달성하라!" />
 
                     <ProgressBar
@@ -215,6 +224,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/edge_btn"
                     android:visibility="invisible"
+                    android:fontFamily="@font/dunggeunmo"
                     android:textColor="@color/white"
                     android:text="보상받기" />
 

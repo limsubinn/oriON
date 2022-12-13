@@ -22,8 +22,6 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder>{
     //아이템 클릭 리스너 인터페이스
     public interface OnItemClickListener{
         void onItemClick(View v, int position); // 아이템 클릭
-        void onEditClick(View v, int position); // 편집
-        void onDeleteClick(View v, int position); // 삭제
     }
 
     //리스너 객체 참조 변수
@@ -83,33 +81,6 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder>{
                 }
             }
         });
-
-        // 아직 편집 버튼, 삭제 버튼 안 만들어놔서 일단 주석처리함.
-//        // 편집 버튼
-//        holder.binding.btnEdit.setOnClickListener (new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int position = holder.getAdapterPosition();
-//                if (position != RecyclerView.NO_POSITION){
-//                    if (mListener != null){
-//                        mListener.onEditClick(v, position);
-//                    }
-//                }
-//            }
-//        });
-//
-//        // 삭제 버튼
-//        holder.binding.btnDelete.setOnClickListener (new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int position = holder.getAdapterPosition();
-//                if (position != RecyclerView.NO_POSITION){
-//                    if (mListener != null){
-//                        mListener.onDeleteClick(v, position);
-//                    }
-//                }
-//            }
-//        });
     }
 
     @Override

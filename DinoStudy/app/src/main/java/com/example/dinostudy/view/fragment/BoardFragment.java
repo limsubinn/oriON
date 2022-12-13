@@ -133,19 +133,10 @@ public class BoardFragment extends Fragment {
                         result.putString("username", username);
                         result.putInt("comment", arrayList.get(position).getComment());
 
-                        getParentFragmentManager().setFragmentResult("board_to_post", result);
+                        getParentFragmentManager().setFragmentResult("goto_post", result);
                         mainActivity.fragmentChange(2);
                     }
 
-                    @Override
-                    public void onEditClick(View v, int position) {
-
-                    }
-
-                    @Override
-                    public void onDeleteClick(View v, int position) {
-
-                    }
                 });
 
             }

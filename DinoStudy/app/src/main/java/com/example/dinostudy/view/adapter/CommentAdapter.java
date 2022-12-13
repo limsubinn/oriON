@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder>{
     Context context;
     ArrayList<CommentItem> arrayList;
+    String username;
 
     //아이템 클릭 리스너 인터페이스
     public interface OnItemClickListener{
@@ -44,16 +45,26 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         }
 
         // 레이아웃 연결
-        void bindItem(CommentItem item){
+        void bindItem(CommentItem item, String username){
             binding.commentContent.setText(item.getComment_content());
             binding.nickname.setText(item.getNickname());
             binding.commentDate.setText(item.getComment_date());
+
+            // 현재 로그인한 유저와 댓글 작성자가 같으면 편집, 삭제 버튼을 보인다.
+            if (username.equals(item.getNickname())) {
+                binding.btnEdit.setVisibility(View.VISIBLE);
+                binding.btnDelete.setVisibility(View.VISIBLE);
+            } else {
+                binding.btnEdit.setVisibility(View.INVISIBLE);
+                binding.btnDelete.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
-    public CommentAdapter(Context context, ArrayList<CommentItem> arrayList) {
+    public CommentAdapter(Context context, ArrayList<CommentItem> arrayList, String username) {
         this.arrayList = arrayList;
         this.context = context;
+        this.username = username;
     }
 
     @NonNull
@@ -67,34 +78,33 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     // ViewHolder가 실제로 데이터를 표시해야 할 때 호출되는 함수
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bindItem(arrayList.get(position));
+        holder.bindItem(arrayList.get(position), username);
 
-        // 아직 편집 버튼, 삭제 버튼 안 만들어놔서 일단 주석처리함.
-//        // 편집 버튼
-//        holder.binding.btnEdit.setOnClickListener (new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int position = holder.getAdapterPosition();
-//                if (position != RecyclerView.NO_POSITION){
-//                    if (mListener != null){
-//                        mListener.onEditClick(v, position);
-//                    }
-//                }
-//            }
-//        });
-//
-//        // 삭제 버튼
-//        holder.binding.btnDelete.setOnClickListener (new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int position = holder.getAdapterPosition();
-//                if (position != RecyclerView.NO_POSITION){
-//                    if (mListener != null){
-//                        mListener.onDeleteClick(v, position);
-//                    }
-//                }
-//            }
-//        });
+        // 편집 버튼
+        holder.binding.btnEdit.setOnClickListener (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION){
+                    if (mListener != null){
+                        mListener.onEditClick(v, position);
+                    }
+                }
+            }
+        });
+
+        // 삭제 버튼
+        holder.binding.btnDelete.setOnClickListener (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION){
+                    if (mListener != null){
+                        mListener.onDeleteClick(v, position);
+                    }
+                }
+            }
+        });
     }
 
     @Override

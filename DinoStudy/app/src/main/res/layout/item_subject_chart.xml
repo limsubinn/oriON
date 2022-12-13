@@ -14,11 +14,13 @@
 
             <TextView
                 android:id="@+id/tv_subject"
+                android:fontFamily="@font/dunggeunmo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="6"
                 android:textSize="20dp"
+                android:textColor="@color/black"
                 android:text="토익" />
 
             <View
@@ -28,11 +30,13 @@
 
             <TextView
                 android:id="@+id/tv_subject_time"
+                android:fontFamily="@font/dunggeunmo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="8"
                 android:textSize="20dp"
+                android:textColor="@color/black"
                 android:text="00:00:00" />
 
             <View

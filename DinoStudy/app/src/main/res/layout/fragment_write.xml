@@ -25,9 +25,13 @@
 
             <Button
                 android:id="@+id/btn_board_write"
+                android:fontFamily="@font/dunggeunmo"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_gravity="right"
+                android:background="@drawable/edge_join_btn"
+                android:backgroundTint="#929678"
+                android:textColor="@color/white"
                 android:text="작성하기" />
         </LinearLayout>
 
@@ -40,12 +44,14 @@
 
             <EditText
                 android:id="@+id/et_title"
+                android:fontFamily="@font/dunggeunmo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="제목을 입력하세요"/>
 
             <EditText
                 android:id="@+id/et_contents"
+                android:fontFamily="@font/dunggeunmo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="top"
