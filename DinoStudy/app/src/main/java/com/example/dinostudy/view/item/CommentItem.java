@@ -5,12 +5,14 @@ public class CommentItem {
     private String nickname;
     private String comment_date;
     private String comment_content;
+    private int post_id;
 
 
-    public CommentItem(String nickname, String comment_date, String comment_content) {
+    public CommentItem(String nickname, String comment_date, String comment_content, int post_id) {
         this.nickname = nickname;
         this.comment_date = comment_date;
         this.comment_content = comment_content;
+        this.post_id = post_id;
     }
 
     public String getNickname() {
@@ -35,5 +37,13 @@ public class CommentItem {
 
     public void setComment_content(String comment_content) {
         this.comment_content = comment_content;
+    }
+
+    public int getPost_id() {
+        return post_id;
+    }
+
+    public void setPost_id(int post_id) {
+        this.post_id = post_id;
     }
 }

@@ -11,8 +11,14 @@ public class ReadCommentResponse {
     @SerializedName("result")
     private List<Comment> result;
 
+    @Expose
+    @SerializedName("code")
+    private int code;
+
     public List<Comment> getResult() {
         return result;
     }
+
+    public int getCode() { return code; }
 
 }

@@ -1,7 +1,11 @@
 package com.example.dinostudy.repository;
 
+import com.example.dinostudy.model.board.CreateCommentData;
+import com.example.dinostudy.model.board.CreateCommentResponse;
 import com.example.dinostudy.model.board.CreatePostData;
 import com.example.dinostudy.model.board.CreatePostResponse;
+import com.example.dinostudy.model.board.ReadCommentData;
+import com.example.dinostudy.model.board.ReadCommentResponse;
 import com.example.dinostudy.model.board.ReadPostResponse;
 import com.example.dinostudy.model.chart.ReadChartData;
 import com.example.dinostudy.model.chart.ReadChartResponse;
@@ -128,4 +132,10 @@ public interface ServiceApi {
 
     @GET("/board/post/read")
     Call<ReadPostResponse> readPost();
+
+    @POST("/board/comment/create")
+    Call<CreateCommentResponse> createComment(@Body CreateCommentData data);
+
+    @POST("board/comment/read")
+    Call<ReadCommentResponse> readComment(@Body ReadCommentData data);
 }

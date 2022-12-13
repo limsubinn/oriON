@@ -1,6 +1,7 @@
 package com.example.dinostudy.view.item;
 
 public class BoardItem {
+    private int id;
     private String username;
     private String title;
     private String date;
@@ -10,12 +11,21 @@ public class BoardItem {
     public BoardItem() {
     }
 
-    public BoardItem(String username, String title, String date, String content, int comment) {
+    public BoardItem(int id, String username, String title, String date, String content, int comment) {
+        this.id = id;
         this.username = username;
         this.title = title;
         this.date = date;
         this.content = content;
         this.comment = comment;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -58,15 +68,4 @@ public class BoardItem {
         this.comment = comment;
     }
 
-
-    @Override
-    public String toString() {
-        return "Data_Board{" +
-                "username='" + username + '\'' +
-                ", title='" + title + '\'' +
-                ", date='" + date + '\'' +
-                ", content='" + content + '\'' +
-                ", comment='" + comment + '\'' +
-                '}';
-    }
 }

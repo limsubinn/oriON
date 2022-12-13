@@ -102,13 +102,14 @@ public class BoardFragment extends Fragment {
                     if (res.getCode() == 200) {
                         for(int i=n-1; i>=0; i--){
 
+                            int id = res.getResult().get(i).getId();
                             String writer = res.getResult().get(i).getWriter();
                             String title = res.getResult().get(i).getTitle();
                             String curdate = res.getResult().get(i).getCurdate();
                             String content = res.getResult().get(i).getContent();
                             int cnt = res.getResult().get(i).getN();
 
-                            BoardItem boardItem = new BoardItem(writer, title, curdate, content, cnt);
+                            BoardItem boardItem = new BoardItem(id, writer, title, curdate, content, cnt);
                             arrayList.add(boardItem);
                         }
                         boardAdapter.notifyDataSetChanged(); //새로고침
@@ -124,12 +125,13 @@ public class BoardFragment extends Fragment {
                     @Override
                     public void onItemClick(View v, int position) {
                         Bundle result = new Bundle();
+                        result.putInt("id", arrayList.get(position).getId());
                         result.putString("writer", arrayList.get(position).getUsername());
                         result.putString("title", arrayList.get(position).getTitle());
                         result.putString("date", arrayList.get(position).getDate());
                         result.putString("content", arrayList.get(position).getContent());
                         result.putString("username", username);
-                        // result.putInt("comment", arrayList.get(position).getComment());
+                        result.putInt("comment", arrayList.get(position).getComment());
 
                         getParentFragmentManager().setFragmentResult("board_to_post", result);
                         mainActivity.fragmentChange(2);
