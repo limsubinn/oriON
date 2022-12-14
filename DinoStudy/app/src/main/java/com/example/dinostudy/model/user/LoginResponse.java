@@ -16,6 +16,14 @@ public class LoginResponse {
     @SerializedName("coin")
     private int coin;
 
+    @SerializedName("gender")
+    private String gender;
+
+    @SerializedName("birth")
+    private String birth;
+
+    @SerializedName("username")
+    private String username;
 
     public int getCode() {
         return code;
@@ -30,4 +38,12 @@ public class LoginResponse {
     }
 
     public int getCoin() { return coin; }
+
+    public String getGender() { return gender; }
+
+    public String getBirth() { return birth; }
+
+    public String getUsername() {
+        return username;
+    }
 }

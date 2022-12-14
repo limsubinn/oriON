@@ -20,9 +20,13 @@ import com.example.dinostudy.databinding.ActivityMissionBinding;
 import com.example.dinostudy.model.mission.CreateMissionData;
 import com.example.dinostudy.model.mission.EditMissionData;
 import com.example.dinostudy.model.mission.ReadMissionData;
+import com.example.dinostudy.model.todo.ReadTodoData;
+import com.example.dinostudy.model.user.EditCoinData;
 import com.example.dinostudy.model.watch.CreateWatchData;
 import com.example.dinostudy.model.watch.ReadWatchData;
 import com.example.dinostudy.viewModel.MissionViewModel;
+import com.example.dinostudy.viewModel.TodoViewModel;
+import com.example.dinostudy.viewModel.UserViewModel;
 import com.example.dinostudy.viewModel.WatchViewModel;
 
 import java.text.SimpleDateFormat;
@@ -32,7 +36,14 @@ public class MissionActivity extends AppCompatActivity {
 
     private ActivityMissionBinding binding;
     private WatchViewModel watchViewModel;
+    private TodoViewModel todoViewModel;
+    private UserViewModel userViewModel;
     private MissionViewModel missionViewModel;
+
+    private String username;
+    private String email;
+    private String coin;
+    private int usercoin;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,13 +58,17 @@ public class MissionActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //뒤로가기
 
         watchViewModel = new ViewModelProvider(this).get(WatchViewModel.class);
+        todoViewModel = new ViewModelProvider(this).get(TodoViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         missionViewModel = new ViewModelProvider(this).get(MissionViewModel.class);
 
         // 사용자 정보 받아오기
         Intent main_to_mission = getIntent();
-        String username = main_to_mission.getStringExtra("nickname");
-        String email = main_to_mission.getStringExtra("email");
-        String coin = main_to_mission.getStringExtra("coin");
+        username = main_to_mission.getStringExtra("nickname");
+        email = main_to_mission.getStringExtra("email");
+        coin = main_to_mission.getStringExtra("coin");
+        usercoin = Integer.parseInt(coin);
+
 
         // 현재 날짜 불러오기
         long now = System.currentTimeMillis();
@@ -205,7 +220,12 @@ public class MissionActivity extends AppCompatActivity {
                                 missionViewModel.readResult1.observe(MissionActivity.this, res -> {
                                     if (res.getCode() == 200) { // 데이터 존재
                                         if (res.getMission1() == 0) {
+                                            // 코인 증가
+                                            usercoin += 20;
+                                            userViewModel.setCoin(new EditCoinData(username, usercoin));
                                             Toast.makeText(getApplicationContext(), "20 코인을 획득하셨습니다!", Toast.LENGTH_SHORT).show();
+
+                                            // 미션 완료
                                             missionViewModel.editMission(new EditMissionData(username, curDate, "mission1", true));
                                             binding.btnMission1.setText("완료");
                                         }
@@ -231,7 +251,12 @@ public class MissionActivity extends AppCompatActivity {
                                 missionViewModel.readResult3.observe(MissionActivity.this, res -> {
                                     if (res.getCode() == 200) { // 데이터 존재
                                         if (res.getMission3() == 0) {
+                                            // 코인 증가
+                                            usercoin += 20;
+                                            userViewModel.setCoin(new EditCoinData(username, usercoin));
                                             Toast.makeText(getApplicationContext(), "20 코인을 획득하셨습니다!", Toast.LENGTH_SHORT).show();
+
+                                            // 미션 완료
                                             missionViewModel.editMission(new EditMissionData(username, curDate, "mission3", true));
                                             binding.btnMission3.setText("완료");
                                         }
@@ -246,6 +271,80 @@ public class MissionActivity extends AppCompatActivity {
             }
         });
 
+        todoViewModel.readTodo(new ReadTodoData(username, curDate));
+        todoViewModel.readResult.observe(MissionActivity.this, res -> {
+            int flag=0;
+            if (res.getCode() == 200) { // 데이터 존재
+                if (res.getCheck1() == 1) {
+                    flag++;
+                    checkFlag(flag);
+                }
+                if (res.getCheck2() == 1) {
+                    flag++;
+                    checkFlag(flag);
+                }
+                if (res.getCheck3() == 1) {
+                    flag++;
+                    checkFlag(flag);
+                }
+                if (res.getCheck4() == 1) {
+                    flag++;
+                    checkFlag(flag);
+                }
+                if (res.getCheck5() == 1) {
+                    flag++;
+                    checkFlag(flag);
+                }
+                if (res.getCheck6() == 1) {
+                    flag++;
+                    checkFlag(flag);
+                }
+                if (res.getCheck7() == 1) {
+                    flag++;
+                    checkFlag(flag);
+                }
+                if (res.getCheck8() == 1) {
+                    flag++;
+                    checkFlag(flag);
+                }
+                if (res.getCheck9() == 1) {
+                    flag++;
+                    checkFlag(flag);
+                }
+                if (res.getCheck10() == 1) {
+                    flag++;
+                    checkFlag(flag);
+                }
+
+            }
+        });
+
+        binding.btnMission2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (binding.btnMission2.getText().toString().equals("보상받기")) {
+                    missionViewModel.readMission2(new ReadMissionData(username, curDate));
+                    missionViewModel.readResult2.observe(MissionActivity.this, res -> {
+                        if (res.getCode() == 200) { // 데이터 존재
+                            if (res.getMission2() == 0) {
+                                // 코인 증가
+                                usercoin += 20;
+                                userViewModel.setCoin(new EditCoinData(username, usercoin));
+                                Toast.makeText(getApplicationContext(), "20 코인을 획득하셨습니다!", Toast.LENGTH_SHORT).show();
+
+                                // 미션 완료
+                                missionViewModel.editMission(new EditMissionData(username, curDate, "mission2", true));
+                                binding.btnMission2.setText("완료");
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(getApplicationContext(), "이미 보상을 획득하셨습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
 
 
 
@@ -255,10 +354,28 @@ public class MissionActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) { //뒤로가기 구현
         switch (item.getItemId()){
             case android.R.id.home:{
+                Intent mission_to_main = new Intent(getApplicationContext(), MainActivity.class);
+                mission_to_main.putExtra("nickname",username); // username 보내기
+                mission_to_main.putExtra("coin", Integer.toString(usercoin));
+                mission_to_main.putExtra("email", email);
+                startActivity(mission_to_main);
                 finish();
                 return true;
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void checkFlag(int flag){
+        binding.progress2.setProgress(flag);
+
+        if(flag >= 5) {
+            binding.btnMission2.setVisibility(View.VISIBLE);
+            Paint paint = new Paint();
+            paint.setColor(Color.BLACK);
+            paint.setAlpha(70);
+            binding.layout2.setBackgroundColor(paint.getColor());
+
+        }
     }
 }

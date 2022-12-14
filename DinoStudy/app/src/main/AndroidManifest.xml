@@ -31,6 +31,15 @@
         <activity
             android:name=".view.activity.MissionActivity">
         </activity>
+        <activity
+            android:name=".view.activity.MypageActivity">
+        </activity>
+        <activity
+            android:name=".view.activity.MyPostActivity">
+        </activity>
+        <activity
+            android:name=".view.activity.MyWriteActivity">
+        </activity>
     </application>
 
 </manifest>

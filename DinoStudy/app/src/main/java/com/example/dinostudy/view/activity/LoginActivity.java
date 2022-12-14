@@ -133,23 +133,4 @@ public class LoginActivity extends AppCompatActivity{
                     }
                 });
     }
-
-
-//    @Override
-//    public void onClick(View view) {
-//        switch (view.getId()) {
-//            case R.id.btnSignIn:
-//                Intent intent= googleSignInClient.getSignInIntent();
-//                startActivityForResult(intent,RC_SIGN_IN);
-//                break;
-//        }
-//    }
-
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        FirebaseAuth.getInstance().signOut();
-//        googleSignInClient.signOut();
-//
-//    }
 }

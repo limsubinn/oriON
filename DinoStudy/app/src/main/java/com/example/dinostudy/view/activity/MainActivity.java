@@ -128,10 +128,12 @@ public class MainActivity extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 if(id == R.id.item_info) {
                     // 내 정보 ..
-                    Intent main_to_mypage = new Intent(getApplicationContext(), MissionActivity.class);
+                    Intent main_to_mypage = new Intent(getApplicationContext(), MypageActivity.class);
                     main_to_mypage.putExtra("nickname", username); // username 보내기
                     main_to_mypage.putExtra("coin", userCoin);
                     main_to_mypage.putExtra("email",userEmail);
+                    main_to_mypage.putExtra("gender"," ");
+
                     startActivity(main_to_mypage);
                     binding.drawerLayout.closeDrawers();
 
@@ -139,8 +141,9 @@ public class MainActivity extends AppCompatActivity {
                 } else if (id == R.id.item_mission) {
                     Intent main_to_mission = new Intent(getApplicationContext(), MissionActivity.class);
                     main_to_mission.putExtra("nickname", username); // username 보내기
-                    main_to_mission.putExtra("coin", userCoin);
                     main_to_mission.putExtra("email",userEmail);
+                    main_to_mission.putExtra("coin", userCoin);
+
                     startActivity(main_to_mission);
                     binding.drawerLayout.closeDrawers();
 

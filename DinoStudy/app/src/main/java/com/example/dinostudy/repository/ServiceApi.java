@@ -39,8 +39,12 @@ import com.example.dinostudy.model.todo.ReadTodoData;
 import com.example.dinostudy.model.todo.ReadTodoResponse;
 import com.example.dinostudy.model.todo.EditTodoCheckData;
 import com.example.dinostudy.model.todo.EditTodoCheckResponse;
+import com.example.dinostudy.model.user.EditCoinData;
+import com.example.dinostudy.model.user.EditCoinResponse;
 import com.example.dinostudy.model.user.JoinData;
 import com.example.dinostudy.model.user.JoinResponse;
+import com.example.dinostudy.model.user.ReadMyPostData;
+import com.example.dinostudy.model.user.ReadMyPostResponse;
 import com.example.dinostudy.model.watch.AddWatchData;
 import com.example.dinostudy.model.watch.AddWatchResponse;
 import com.example.dinostudy.model.user.LoginData;
@@ -163,6 +167,12 @@ public interface ServiceApi {
 
     @POST("board/comment/delete")
     Call<DeleteCommentResponse> deleteComment(@Body DeleteCommentData data);
+
+    @POST("/user/post/read")
+    Call<ReadMyPostResponse> readUserPost(@Body ReadMyPostData data);
+
+    @POST("/user/coin/edit")
+    Call<EditCoinResponse> setCoin(@Body EditCoinData data);
 
     @POST("/mission/create")
     Call<CreateMissionResponse> createMission(@Body CreateMissionData data);

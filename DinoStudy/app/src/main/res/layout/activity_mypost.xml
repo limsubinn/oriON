@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view"
+            android:layout_above="@+id/layout_comment"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:id="@+id/layout_post"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="7dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
+                    <Button
+                        android:id="@+id/btn_gotomypage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_alignParentStart="true"
+                        android:background="@drawable/edge_join_btn"
+                        android:backgroundTint="#929678"
+                        android:fontFamily="@font/dunggeunmo"
+                        android:text="마이페이지"
+                       android:textColor="@color/white">
+                    </Button>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:fontFamily="@font/dunggeunmo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_gotomain"
+                    android:text="제목입니다"
+                    android:textColor="@color/black"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="3dp" >
+
+                    <LinearLayout
+                        android:id="@+id/layout_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/post_nickname"
+                            android:fontFamily="@font/dunggeunmo"
+                            android:layout_marginTop="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="닉네임" />
+
+                        <TextView
+                            android:layout_marginTop="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" | " />
+                        <TextView
+                            android:id="@+id/board_date"
+                            android:fontFamily="@font/dunggeunmo"
+                            android:layout_marginTop="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2022.10.21" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="right">
+
+                        <ImageButton
+                            android:id="@+id/btn_edit"
+                            android:layout_width="25dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_baseline_edit_24"
+                            android:backgroundTint="#00000000" />
+
+                        <ImageButton
+                            android:id="@+id/btn_delete"
+                            android:layout_width="25dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_baseline_delete_forever_24"
+                            android:backgroundTint="#00000000" />
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="5dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/board_post_content"
+                    android:fontFamily="@font/dunggeunmo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="80dp"
+                    android:text="본문 내용입니다"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal"
+                    android:paddingVertical="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingRight="5dp"
+                        android:src="@drawable/comment" />
+
+                    <TextView
+                        android:fontFamily="@font/dunggeunmo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="댓글"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/tv_cnt"
+                        android:fontFamily="@font/dunggeunmo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbarFadeDuration="0"
+                    android:scrollbarSize="5dp"
+                    android:scrollbarThumbVertical="@android:color/darker_gray"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/layout_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:padding="10dp"
+            android:layout_marginBottom="50dp">
+
+            <EditText
+                android:id="@+id/et_comment_write"
+                android:fontFamily="@font/dunggeunmo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:hint="댓글을 입력하세요"/>
+
+            <Button
+                android:id="@+id/btn_comment_insert"
+                android:fontFamily="@font/dunggeunmo"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="8"
+                android:background="@drawable/edge_join_btn"
+                android:backgroundTint="#929678"
+                android:textColor="@color/white"
+                android:text="작성"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

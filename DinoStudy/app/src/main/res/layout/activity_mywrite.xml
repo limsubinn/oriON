@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+        <LinearLayout
+            android:id="@+id/layout_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="4" />
+
+            <Button
+                android:id="@+id/btn_board_write"
+                android:fontFamily="@font/dunggeunmo"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:background="@drawable/edge_join_btn"
+                android:backgroundTint="#929678"
+                android:textColor="@color/white"
+                android:text="수정하기" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layout_category"
+            android:layout_marginBottom="50dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_title"
+                android:fontFamily="@font/dunggeunmo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="제목을 입력하세요"/>
+
+            <EditText
+                android:id="@+id/et_contents"
+                android:fontFamily="@font/dunggeunmo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:hint="내용을 입력하세요"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
