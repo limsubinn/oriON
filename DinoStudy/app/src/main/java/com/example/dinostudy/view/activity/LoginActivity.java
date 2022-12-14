@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.dinostudy.R;
 import com.example.dinostudy.databinding.ActivityLoginBinding;
 import com.example.dinostudy.model.user.LoginData;
-import com.example.dinostudy.viewModel.LoginViewModel;
+import com.example.dinostudy.viewModel.UserViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity{
     private static final int REQ_SIGN_IN_GOOGLE = 100; // 구글 로그인 결과 코드
     private static final int REQ_GET_TOKEN = 200;
 
-    private LoginViewModel loginViewModel;
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity{
         View view = binding.getRoot();
         setContentView(view);
 
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
         GoogleSignInOptions googleSignInOptions=new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -100,16 +100,15 @@ public class LoginActivity extends AppCompatActivity{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){ // 로그인이 성공했으면
-                            Toast.makeText(LoginActivity.this,"로그인 성공", Toast.LENGTH_SHORT).show();
                             // Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             // intent.putExtra("nickname", account.getDisplayName());
 
                             // String g_name = account.getDisplayName(); // 닉네임
                             String g_mail = account.getEmail(); // 이메일
 
-                            loginViewModel.login(new LoginData(g_mail));
+                            userViewModel.login(new LoginData(g_mail));
 
-                            loginViewModel.loginResult.observe(LoginActivity.this, res -> {
+                            userViewModel.loginResult.observe(LoginActivity.this, res -> {
                                 if(res.getCode() == 200) {
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     intent.putExtra("nickname", res.getMessage()); // username 보내기

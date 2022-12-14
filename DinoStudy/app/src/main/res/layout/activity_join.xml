@@ -61,30 +61,23 @@
                     android:text="닉네임"
                     android:fontFamily="@font/dunggeunmo"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/et_nickname"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_nickname"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:id="@+id/et_nickname"
+                <TextView
+                    android:id="@+id/tv_nickname"
                     android:layout_width="match_parent"
                     android:layout_marginLeft="50dp"
-                    android:layout_marginRight="100dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/dunggeunmo"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:text="nickname"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textview1" />
 
-                <Button
-                    android:id="@+id/btn_check"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:text="중복체크"
-                    android:fontFamily="@font/dunggeunmo"
-                    android:background="@drawable/edge_join_btn"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

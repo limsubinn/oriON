@@ -17,21 +17,42 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginViewModel extends AndroidViewModel {
+public class UserViewModel extends AndroidViewModel {
+    public MutableLiveData<JoinResponse> joinResult = new MutableLiveData<>();
     public MutableLiveData<LoginResponse> loginResult = new MutableLiveData<>();
+
 
     ServiceApi service;
     //private SharedPreferences pref;
 
 
-    public LoginViewModel(@NonNull Application application) {
+    public UserViewModel(@NonNull Application application) {
         super(application);
         service = RetrofitClient.getClient().create(ServiceApi.class);
         //pref = application.getSharedPreferences();
-
     }
 
-    // 서버에서 응답받는 코드 -> 응답코드 받아서 성공/실패여부 확인?
+
+    // 계정 등록
+    public void join (JoinData data) {
+        System.out.println("********* joinData *********");
+
+        service.join(data).enqueue(new Callback<JoinResponse>() {
+            @Override
+            public void onResponse(Call<JoinResponse> call, Response<JoinResponse> response) {
+                JoinResponse result = response.body();
+                joinResult.postValue(result);
+                System.out.println("join resultCode: "+result.getCode());
+            }
+
+            @Override
+            public void onFailure(Call<JoinResponse> call, Throwable t) {
+                System.out.println("fail");
+                t.printStackTrace();
+            }
+        });
+    }
+
     public void login (LoginData data) {
         System.out.println("********* loginData *********");
 
@@ -50,23 +71,5 @@ public class LoginViewModel extends AndroidViewModel {
             }
         });
     }
-
-
-//    public String getLoginMethod(){
-//        return pref.getLoginMethod();
-//    }
-//
-//    public void getLoginSession() {
-//        String userId = " ";
-//        Iterator<String> iterator = pref.getCookies().iterator();
-//        if (iterator != null) {
-//            while (iterator.hasNext()) {
-//                userId = iterator.next();
-//                userId = userId.split(";")[0].split("=")[1];
-//                Log.d("SESSION", "getLoginSession: " +userId);
-//            }
-//        }
-//        userIdLiveData.postValue(userId);
-//    }
 
 }

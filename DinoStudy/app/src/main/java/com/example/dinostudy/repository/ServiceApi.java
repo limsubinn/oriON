@@ -21,6 +21,12 @@ import com.example.dinostudy.model.chart.ReadChartData;
 import com.example.dinostudy.model.chart.ReadChartResponse;
 import com.example.dinostudy.model.diary.AddDiaryData;
 import com.example.dinostudy.model.diary.AddDiaryResponse;
+import com.example.dinostudy.model.mission.CreateMissionData;
+import com.example.dinostudy.model.mission.CreateMissionResponse;
+import com.example.dinostudy.model.mission.EditMissionData;
+import com.example.dinostudy.model.mission.EditMissionResponse;
+import com.example.dinostudy.model.mission.ReadMissionData;
+import com.example.dinostudy.model.mission.ReadMissionResponse;
 import com.example.dinostudy.model.todo.AddTodoData;
 import com.example.dinostudy.model.todo.AddTodoResponse;
 import com.example.dinostudy.model.todo.CreateTodoData;
@@ -33,8 +39,6 @@ import com.example.dinostudy.model.todo.ReadTodoData;
 import com.example.dinostudy.model.todo.ReadTodoResponse;
 import com.example.dinostudy.model.todo.EditTodoCheckData;
 import com.example.dinostudy.model.todo.EditTodoCheckResponse;
-import com.example.dinostudy.model.user.CheckUserData;
-import com.example.dinostudy.model.user.CheckUserResponse;
 import com.example.dinostudy.model.user.JoinData;
 import com.example.dinostudy.model.user.JoinResponse;
 import com.example.dinostudy.model.watch.AddWatchData;
@@ -67,10 +71,6 @@ public interface ServiceApi {
     // 사용자의 이메일이 등록되어 있는지 확인
     @POST("/user/login")
     Call<LoginResponse> login(@Body LoginData data);
-
-    // 사용자 아이디 중복 체크
-    @POST("/user/check")
-    Call<CheckUserResponse> checkUser(@Body CheckUserData data);
 
     // 사용자 계정 생성
     @POST("/user/join")
@@ -163,4 +163,14 @@ public interface ServiceApi {
 
     @POST("board/comment/delete")
     Call<DeleteCommentResponse> deleteComment(@Body DeleteCommentData data);
+
+    @POST("/mission/create")
+    Call<CreateMissionResponse> createMission(@Body CreateMissionData data);
+
+    @POST("/mission/read")
+    Call<ReadMissionResponse> readMission(@Body ReadMissionData data);
+
+    @POST("/mission/edit")
+    Call<EditMissionResponse> editMission(@Body EditMissionData data);
+
 }

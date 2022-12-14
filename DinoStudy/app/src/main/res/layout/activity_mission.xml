@@ -46,6 +46,7 @@
                 android:background="#F3F3F3">
 
                 <LinearLayout
+                    android:id="@+id/layout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -61,13 +62,15 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/dunggeunmo"
-                        android:text="공부 시간 2시간을 달성하라!" />
+                        android:text="공부 시간 1일 2시간을 달성하라!" />
 
                     <ProgressBar
                         android:id="@+id/progress_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
+                        android:progress="0"
+                        android:max="120"
                         android:progressDrawable="@drawable/progressbar_custom"
                         style="@android:style/Widget.ProgressBar.Horizontal"/>
 
@@ -86,9 +89,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/edge_btn"
+                    android:background="@drawable/edge_btn_2"
                     android:visibility="invisible"
-                    android:textColor="@color/white"
+                    android:textColor="#929678"
+                    android:textStyle="bold"
                     android:fontFamily="@font/dunggeunmo"
                     android:text="보상받기" />
 
@@ -114,6 +118,7 @@
                 android:background="#F3F3F3">
 
                 <LinearLayout
+                    android:id="@+id/layout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -129,13 +134,15 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/dunggeunmo"
-                        android:text="To Do 5개를 달성하라!" />
+                        android:text="To Do 1일 5개를 달성하라!" />
 
                     <ProgressBar
                         android:id="@+id/progress_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
+                        android:progress="0"
+                        android:max="5"
                         android:progressDrawable="@drawable/progressbar_custom"
                         style="@android:style/Widget.ProgressBar.Horizontal"/>
 
@@ -154,10 +161,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/edge_btn"
+                    android:background="@drawable/edge_btn_2"
                     android:visibility="invisible"
                     android:fontFamily="@font/dunggeunmo"
-                    android:textColor="@color/white"
+                    android:textColor="#929678"
+                    android:textStyle="bold"
                     android:text="보상받기" />
 
             </FrameLayout>
@@ -182,6 +190,7 @@
                 android:background="#F3F3F3">
 
                 <LinearLayout
+                    android:id="@+id/layout3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -197,13 +206,15 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/dunggeunmo"
-                        android:text="공부 시간 6시간을 달성하라!" />
+                        android:text="공부 시간 1일 6시간을 달성하라!" />
 
                     <ProgressBar
                         android:id="@+id/progress_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
+                        android:progress="0"
+                        android:max="360"
                         android:progressDrawable="@drawable/progressbar_custom"
                         style="@android:style/Widget.ProgressBar.Horizontal"/>
 
@@ -222,10 +233,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/edge_btn"
+                    android:background="@drawable/edge_btn_2"
                     android:visibility="invisible"
                     android:fontFamily="@font/dunggeunmo"
-                    android:textColor="@color/white"
+                    android:textColor="#929678"
+                    android:textStyle="bold"
                     android:text="보상받기" />
 
             </FrameLayout>
