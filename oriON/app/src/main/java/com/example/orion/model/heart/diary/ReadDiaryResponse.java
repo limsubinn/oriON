@@ -1,4 +1,4 @@
-package com.example.orion.model.diary;
+package com.example.orion.model.heart.diary;
 
 import com.google.gson.annotations.SerializedName;
 

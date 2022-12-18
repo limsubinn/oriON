@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "124285905616",
-    "project_id": "test-dino-934c0",
-    "storage_bucket": "test-dino-934c0.appspot.com"
+    "project_number": "958916489445",
+    "project_id": "orion-9f75f",
+    "storage_bucket": "orion-9f75f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:124285905616:android:a7beeeb91132e988884cd5",
+        "mobilesdk_app_id": "1:958916489445:android:7d426e32276a95e9c0a40c",
         "android_client_info": {
           "package_name": "com.example.orion"
         }
       },
       "oauth_client": [
         {
-          "client_id": "124285905616-if1uhvtubvbrc9vvr1867q9k8iitfen5.apps.googleusercontent.com",
+          "client_id": "958916489445-3i0sdu812280rre3q0kgb3uvg1ls34j8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.orion",
+            "certificate_hash": "b86896b78e063b0b0d7346099808312209d075d8"
+          }
+        },
+        {
+          "client_id": "958916489445-f812q33su4im0o2hi9qvv1aeektunpdk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDyGzamYLPcuNm7KTvCQlKoaWkzLYH0oH0"
+          "current_key": "AIzaSyBR7y0ozwO2JzD2Q4tkx-KMPZDhxhzj50c"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "124285905616-if1uhvtubvbrc9vvr1867q9k8iitfen5.apps.googleusercontent.com",
+              "client_id": "958916489445-f812q33su4im0o2hi9qvv1aeektunpdk.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -19,10 +19,14 @@ import com.example.orion.model.board.ReadCommentResponse;
 import com.example.orion.model.board.ReadPostResponse;
 import com.example.orion.model.chart.ReadChartData;
 import com.example.orion.model.chart.ReadChartResponse;
-import com.example.orion.model.diary.AddDiaryData;
-import com.example.orion.model.diary.AddDiaryResponse;
+import com.example.orion.model.heart.diary.AddDiaryData;
+import com.example.orion.model.heart.diary.AddDiaryResponse;
 import com.example.orion.model.heart.CreateGameData;
 import com.example.orion.model.heart.CreateGameResponse;
+import com.example.orion.model.heart.EditGameData;
+import com.example.orion.model.heart.EditGameResponse;
+import com.example.orion.model.heart.ReadGameData;
+import com.example.orion.model.heart.ReadGameResponse;
 import com.example.orion.model.mission.CreateMissionData;
 import com.example.orion.model.mission.CreateMissionResponse;
 import com.example.orion.model.mission.EditMissionData;
@@ -51,8 +55,8 @@ import com.example.orion.model.watch.AddWatchData;
 import com.example.orion.model.watch.AddWatchResponse;
 import com.example.orion.model.user.LoginData;
 import com.example.orion.model.user.LoginResponse;
-import com.example.orion.model.diary.CreateDiaryData;
-import com.example.orion.model.diary.CreateDiaryResponse;
+import com.example.orion.model.heart.diary.CreateDiaryData;
+import com.example.orion.model.heart.diary.CreateDiaryResponse;
 import com.example.orion.model.watch.CreateWatchData;
 import com.example.orion.model.watch.CreateWatchResponse;
 import com.example.orion.model.watch.DeleteTimeData;
@@ -63,8 +67,8 @@ import com.example.orion.model.watch.EditSubjectData;
 import com.example.orion.model.watch.EditSubjectResponse;
 import com.example.orion.model.watch.EditTimeData;
 import com.example.orion.model.watch.EditTimeResponse;
-import com.example.orion.model.diary.ReadDiaryData;
-import com.example.orion.model.diary.ReadDiaryResponse;
+import com.example.orion.model.heart.diary.ReadDiaryData;
+import com.example.orion.model.heart.diary.ReadDiaryResponse;
 import com.example.orion.model.watch.ReadWatchData;
 import com.example.orion.model.watch.ReadWatchResponse;
 
@@ -187,4 +191,10 @@ public interface ServiceApi {
 
     @POST("/game/create")
     Call<CreateGameResponse> createGame(@Body CreateGameData data);
+
+    @POST("/game/read")
+    Call<ReadGameResponse> readGame(@Body ReadGameData data);
+
+    @POST("/game/edit")
+    Call<EditGameResponse> editGame(@Body EditGameData data);
 }

@@ -152,25 +152,23 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        // default로 to do 보이게 함
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        TodoFragment fragment_todo = new TodoFragment();
+        WatchFragment fragment_watch = new WatchFragment();
 
         Bundle bundle = new Bundle();
         bundle.putString("username", username);
-        fragment_todo.setArguments(bundle);
+        fragment_watch.setArguments(bundle);
 
-        transaction.replace(binding.frame.getId(),fragment_todo);
+        transaction.replace(binding.frame.getId(),fragment_watch);
         transaction.commit();
 
-
-        binding.btnChk.setImageResource(R.drawable.checkbox_y);
+        binding.btnChk.setImageResource(R.drawable.checkbox_n);
         binding.btnChart.setImageResource(R.drawable.chart_n);
-        binding.btnWatch.setImageResource(R.drawable.watch_n);
+        binding.btnWatch.setImageResource(R.drawable.watch_y);
         binding.btnCommu.setImageResource(R.drawable.bubble_n);
         binding.btnDiary.setImageResource(R.drawable.diary_n);
         binding.btnHeart.setImageResource(R.drawable.heart_n);
-
 
         binding.btnChk.setOnClickListener(new View.OnClickListener() {
             @Override
