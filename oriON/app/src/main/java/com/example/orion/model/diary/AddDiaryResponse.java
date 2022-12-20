@@ -1,8 +1,8 @@
-package com.example.orion.model.heart.diary;
+package com.example.orion.model.diary;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CreateDiaryResponse {
+public class AddDiaryResponse {
     @SerializedName("code")
     private int code;
 

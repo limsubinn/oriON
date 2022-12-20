@@ -20,9 +20,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.orion.databinding.FragmentDiaryBinding;
 import com.example.orion.databinding.FragmentDiaryPlusContentBinding;
-import com.example.orion.model.heart.diary.AddDiaryData;
-import com.example.orion.model.heart.diary.CreateDiaryData;
-import com.example.orion.model.heart.diary.ReadDiaryData;
+import com.example.orion.model.diary.AddDiaryData;
+import com.example.orion.model.diary.CreateDiaryData;
+import com.example.orion.model.diary.ReadDiaryData;
 import com.example.orion.viewModel.DiaryViewModel;
 
 import java.text.SimpleDateFormat;

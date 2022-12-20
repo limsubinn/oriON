@@ -6,12 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.orion.model.heart.diary.AddDiaryData;
-import com.example.orion.model.heart.diary.AddDiaryResponse;
-import com.example.orion.model.heart.diary.CreateDiaryData;
-import com.example.orion.model.heart.diary.CreateDiaryResponse;
-import com.example.orion.model.heart.diary.ReadDiaryData;
-import com.example.orion.model.heart.diary.ReadDiaryResponse;
+import com.example.orion.model.diary.AddDiaryData;
+import com.example.orion.model.diary.AddDiaryResponse;
+import com.example.orion.model.diary.CreateDiaryData;
+import com.example.orion.model.diary.CreateDiaryResponse;
+import com.example.orion.model.diary.ReadDiaryData;
+import com.example.orion.model.diary.ReadDiaryResponse;
 import com.example.orion.repository.RetrofitClient;
 import com.example.orion.repository.ServiceApi;
 

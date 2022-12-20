@@ -37,7 +37,7 @@
                         android:backgroundTint="#929678"
                         android:fontFamily="@font/dunggeunmo"
                         android:text="마이페이지"
-                       android:textColor="@color/white">
+                        android:textColor="@color/white">
                     </Button>
                 </RelativeLayout>
 
@@ -49,7 +49,7 @@
                     android:layout_below="@+id/btn_gotomain"
                     android:text="제목입니다"
                     android:textColor="@color/black"
-                    android:textSize="30dp"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
                 <RelativeLayout
@@ -64,7 +64,6 @@
                         android:layout_height="wrap_content">
                         <TextView
                             android:id="@+id/post_nickname"
-                            android:fontFamily="@font/dunggeunmo"
                             android:layout_marginTop="8dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -77,7 +76,6 @@
                             android:text=" | " />
                         <TextView
                             android:id="@+id/board_date"
-                            android:fontFamily="@font/dunggeunmo"
                             android:layout_marginTop="8dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -119,13 +117,12 @@
                 <TextView
                     android:layout_marginTop="5dp"
                     android:id="@+id/board_post_content"
-                    android:fontFamily="@font/dunggeunmo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="80dp"
                     android:text="본문 내용입니다"
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="15dp" />
 
                 <View
                     android:layout_width="match_parent"

@@ -40,7 +40,7 @@ public class HeartViewModel extends AndroidViewModel {
             public void onResponse(Call<CreateGameResponse> call, Response<CreateGameResponse> response) {
                 CreateGameResponse result = response.body();
                 createResult.postValue(result);
-                System.out.println("create resultCode: " + result.getCode());
+                System.out.println("read resultCode: " + result.getCode());
             }
 
             @Override
@@ -50,7 +50,6 @@ public class HeartViewModel extends AndroidViewModel {
             }
         });
     }
-
     public void readGame(ReadGameData data){
         System.out.println("********* readGameData *********");
 
